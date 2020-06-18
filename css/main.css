@@ -1,23 +1,18 @@
-/**
-  CONTENTS
-
-  SETTINGS
-  Global...............Globally-available variables and config.
-
-  TOOLS
-  Mixins...............Useful mixins.
-  */
- 
-body {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  background-color: darkgrey;
+.outer {
+  border: 5px solid black;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+.box {
+  padding: 10px;
+  width: calc(110% - 30px);
+  background-color: rebeccapurple;
+  color: white;
 }
 
-#title_block{
-  background: #fffbe4;
+form.login-form {
+  margin-left: 25%;
+  margin-top:  5%;
+  margin-right: calc(50%);
+  border: 4px solid black;
+  padding: 5px;
 }
