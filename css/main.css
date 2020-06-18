@@ -1,4 +1,23 @@
+/**
+  CONTENTS
+
+  SETTINGS
+  Global...............Globally-available variables and config.
+
+  TOOLS
+  Mixins...............Useful mixins.
+  */
+ 
 body {
-    margin: 0;
-    overflow: hidden;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: darkgrey;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#title_block{
+  background: #fffbe4;
 }
