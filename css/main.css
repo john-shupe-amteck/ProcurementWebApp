@@ -1,18 +1,88 @@
-.outer {
-  border: 5px solid black;
+colors {
+  color: #383D3B;
+  color: #EEE5E9;
+  color: #7C7C7C;
+  color: #92DCE5;
+  color: #52DEE5;
+}
+body {
+  background-image: url(http://localhost/ProcurementWebApp/img/Amteck-07.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.box {
-  padding: 10px;
-  width: calc(110% - 30px);
-  background-color: rebeccapurple;
-  color: white;
+.temp {
+  color: red !important;
 }
 
-form.login-form {
-  margin-left: 25%;
-  margin-top:  5%;
-  margin-right: calc(50%);
-  border: 4px solid black;
+footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px !important;
+  width: 100%;
+}
+
+.top-nav, .bottom-nav{
+  background: rgba(0,0,0,.5);
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+}
+
+.top-nav a {
+  text-decoration: none;
+  float: left;
+  color: #EEE5E9;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+.top-nav a:hover {
+  color: #7C7C7C;
+}
+
+.top-nav a.link {
+  float: right;
+}
+
+.top-nav a.home-link {
+  font-size: 24px;
+  padding: 10px 14px;
+}
+
+main {
+  max-width: 400px;
+  margin: auto;
+  color: #EEE5E9;
+  margin-top: 300px;
+  background-color: #00000090 ;
   padding: 5px;
+  height: 200px;
+}
+
+main h2 {
+  margin: 10px;
+}
+
+main input {
+  margin: 10px;
+  border-radius: 5px;
+  border: #EEE5E9 solid 1px;
+  width: 92%;
+  padding: 5px;
+}
+
+footer p {
+  margin: 10px;
+}
+
+#login-button {
+  float: right;
+  width: 50%;
 }
