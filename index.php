@@ -1,11 +1,10 @@
 <?php
-  include 'php/config.php';
+  include('php/config.php');
   session_start();
 
   if (isset($_SESSION['user_id'])) {
-    echo ("<p>User logged in</p>");
+    $_SESSION['user_id'] = null;
   }
-
   
   if (isset($_POST['login'])) {
     $username = $_POST['username'];
