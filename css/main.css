@@ -5,6 +5,13 @@ colors {
   color: #92DCE5;
   color: #52DEE5;
 }
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-image:      url(http://localhost/ProcurementWebApp/img/Amteck-07.jpg);
   background-repeat:     no-repeat;
@@ -13,6 +20,7 @@ body {
   margin:                0px;
   padding:               0px;
   font-family:           'Montserrat', sans-serif;
+  text-align: center;
 }
 
 .temp {
@@ -36,7 +44,7 @@ footer p {
   height:       50px;
   overflow:     hidden;
 }
-.top-nav a {
+.top-nav a{
   text-decoration:  none;
   float:            left;
   color:          #EEE5E9;
@@ -75,24 +83,45 @@ main {
   padding: 5px;
   height: 200px;
 }
+
 main h2 {
   margin: 10px;
+  float: left;
 }
 main input {
   margin: 10px;
   border-radius: 5px;
   border: #EEE5E9 solid 1px;
-  width: 92%;
+  width: 95%;
   padding: 5px;
 }
-
-#login-button {
-  float: right;
+main button {
+  border-radius: 5px;
+  border: #EEE5E9 solid 1px;
   width: 50%;
+  padding: 5px;
+  float: right;
+  margin: 10px;
 }
-#login-button:hover {
+main button:hover {
   background-color: lightgray;
 }
-#login-button:active {
+main button:active {
   background-color: gray;
 }
+main a {
+  text-decoration: none;
+  color: #EEE5E9;
+  display: block;
+}
+main a:hover {
+  color: #52DEE5;
+}
+main ul {
+  margin: 5px;
+}
+main li {
+  list-style: none;
+  float: left;
+}
+
