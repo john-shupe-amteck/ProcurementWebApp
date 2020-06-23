@@ -4,8 +4,10 @@
 
   if (isset($_SESSION['user_id'])) {
     $_SESSION['user_id'] = null;
+    $_SESSION['user_name'] = null;
+    $_SESSION['is_admin'] = null;
   }
-  
+
   if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -21,6 +23,8 @@
     } else {
       if (password_verify($password, $result['password'])) {
         $_SESSION['user_id'] = $result['ID'];
+        $_SESSION['user_name'] = $result['username'];
+        $_SESSION['is_admin'] = $result['admin'];
         header("Location: user-page.php");
       } else {
         echo "<script>window.alert('Incorrect Password');</script>";
@@ -77,7 +81,7 @@
             <button type="submit" name="login" value="login">Submit</button>
           </div>
         </form>
-    </div>
+      </div>
     </main>
 
     <footer class="bottom-nav">
