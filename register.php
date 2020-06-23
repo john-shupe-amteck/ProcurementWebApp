@@ -40,8 +40,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/register.css">
+    <?php
+    if ($_SESSION['theme'] == "light") {
+        echo '<link rel="stylesheet" href="css/light-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/light-theme/index.css">';
+      } elseif ($_SESSION['theme'] == "dark") {
+        echo '<link rel="stylesheet" href="css/dark-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/dark-theme/index.css">';
+      }
+    ?>
     <link rel="icon" href="img/amtecklogo.PNG">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
 
