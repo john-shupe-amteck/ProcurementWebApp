@@ -1,0 +1,132 @@
+colors {
+  color: #383D3B;
+  color: #EEE5E9;
+  color: #7C7C7C;
+  color: #92DCE5;
+  color: #52DEE5;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 85%;
+}
+
+body {
+  background-image:      url(http://localhost/ProcurementWebApp/img/Amteck-07.jpg);
+  background-repeat:     no-repeat;
+  background-attachment: fixed;
+  background-size:       cover;
+  margin:                0px;
+  padding:               0px;
+  font-family:           'Montserrat', sans-serif;
+  text-align: center;
+  height: 100%;
+}
+
+.temp {
+  color: red !important;
+}
+
+footer {
+  position: fixed;
+  left:     0px;
+  bottom:   0px;
+  height:   30px !important;
+  width:    100%;
+}
+footer p {
+  margin: 10px;
+}
+
+.top-nav, .bottom-nav{
+  background: rgba(0,0,0,.5);
+  width:        100%;
+  height:       50px;
+  overflow:     hidden;
+}
+.top-nav a{
+  text-decoration:  none;
+  float:            left;
+  color:          #EEE5E9;
+  text-align:       center;
+  padding:          14px 16px;
+  font-size:        17px;
+}
+.top-nav a:hover {
+  color:         #7C7C7C;
+  border-bottom: #52DEE5 1px solid;
+}
+.top-nav a.link {
+  float: right;
+}
+.top-nav a.home-link {
+  font-size:      24px;
+  padding:        10px 14px;
+  border-bottom:  none;
+  color:        #EEE5E9;
+}
+.top-nav a.active {
+  color: #92DCE5;
+} 
+
+.bottom-nav {
+  background-color: #000000;
+  color: #EEE5E9;
+}
+
+main {
+  max-width: 400px;
+  margin: auto;
+  color: #EEE5E9;
+  margin-top: 300px;
+  background-color: #00000090;
+  padding: 5px;
+  height: 200px;
+}
+
+main h2 {
+  margin: 10px;
+  float: left;
+}
+main input {
+  margin: 10px;
+  border-radius: 5px;
+  border: #EEE5E9 solid 1px;
+  width: 95%;
+  padding: 5px;
+}
+main button {
+  border-radius: 5px;
+  border: #EEE5E9 solid 1px;
+  width: 50%;
+  padding: 5px;
+  float: right;
+  margin: 10px;
+}
+main button:hover {
+  background-color: lightgray;
+}
+main button:active {
+  background-color: gray;
+}
+main a {
+  text-decoration: none;
+  color: #EEE5E9;
+  display: block;
+}
+main a:hover {
+  color: #52DEE5;
+}
+main ul {
+  margin: 5px;
+}
+main li {
+  list-style: none;
+  float: left;
+}
+

@@ -1,4 +1,6 @@
 <?php
+  session_start();
+
   define('USER', 'root');
   define('PASSWORD', '');
   define('HOST', 'localhost');
@@ -9,4 +11,6 @@
   } catch (PDOException $e) {
       exit("Error: " . $e->getMessage());
   }
+  
+  $_SESSION['theme'] = "dark";
 ?>

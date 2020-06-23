@@ -1,6 +1,5 @@
 <?php
   include('php/config.php');
-  session_start();
 
   if (isset($_SESSION['user_id'])) {
     $_SESSION['user_id'] = null;
@@ -40,9 +39,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="icon" href="img/amtecklogo.PNG">
+    <?php
+      if ($_SESSION['theme'] == "light") {
+        echo '<link rel="stylesheet" href="css/light-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/light-theme/index.css">';
+      } elseif ($_SESSION['theme'] == "dark") {
+        echo '<link rel="stylesheet" href="css/dark-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/dark-theme/index.css">';
+      }
+    ?>
+    <link rel="icon" href="img/amtecklogo.PNG" >
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
 
     <title>Amteck Procurement</title>

@@ -39,7 +39,7 @@ footer p {
 }
 
 .top-nav, .bottom-nav{
-  background: rgba(0,0,0,.5);
+  background: #EEE5E935;
   width:        100%;
   height:       50px;
   overflow:     hidden;
@@ -53,7 +53,7 @@ footer p {
   font-size:        17px;
 }
 .top-nav a:hover {
-  color:         #7C7C7C;
+  color:         #92DCE5;
   border-bottom: #52DEE5 1px solid;
 }
 .top-nav a.link {
@@ -67,19 +67,20 @@ footer p {
 }
 .top-nav a.active {
   color: #92DCE5;
+  border-bottom: #52DEE5 1px solid;
 } 
 
 .bottom-nav {
-  background-color: #000000;
-  color: #EEE5E9;
+  background-color: #EEE5E9;
+  color: #383D3B;
 }
 
 main {
   max-width: 400px;
   margin: auto;
-  color: #EEE5E9;
+  color: #383D3B;
   margin-top: 300px;
-  background-color: #00000090;
+  background-color: rgba(255,255,255,.75);
   padding: 5px;
   height: 200px;
 }
@@ -91,13 +92,13 @@ main h2 {
 main input {
   margin: 10px;
   border-radius: 5px;
-  border: #EEE5E9 solid 1px;
+  border: #7C7C7C solid 1px;
   width: 95%;
   padding: 5px;
 }
 main button {
   border-radius: 5px;
-  border: #EEE5E9 solid 1px;
+  border: #7C7C7C solid 1px;
   width: 50%;
   padding: 5px;
   float: right;
@@ -111,7 +112,7 @@ main button:active {
 }
 main a {
   text-decoration: none;
-  color: #EEE5E9;
+  color: #383D3B;
   display: block;
 }
 main a:hover {
@@ -125,3 +126,9 @@ main li {
   float: left;
 }
 
+#theme-change {
+  float: left;
+  font: inherit;
+  border: none;
+  vertical-align: center;
+}

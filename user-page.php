@@ -1,6 +1,6 @@
 <?php
   include('php/config.php');
-  session_start();
+  
   if (is_null($_SESSION['user_id'])) [
     header("Location: index.php")
   ]
@@ -13,8 +13,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/user-page.css">
+    <?php
+      if ($_SESSION['theme'] == "light") {
+        echo '<link rel="stylesheet" href="css/light-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/light-theme/user-page.css">';
+      } elseif ($_SESSION['theme'] == "dark") {
+        echo '<link rel="stylesheet" href="css/dark-theme/main.css">';
+        echo '<link rel="stylesheet" href="css/dark-theme/user-page.css">';
+      }
+    ?>
 
     <link rel="icon" href="img/amtecklogo.PNG">
 
@@ -61,7 +68,7 @@
         <?php
           $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
 
-          $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .")";
+          $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .") ORDER BY A.ID";
           $result = mysqli_query($con, $query);
 
           echo "<table>
@@ -78,6 +85,9 @@
           }
           echo "</table>";        
         ?>
+      </div>
+      <div class="content-container data">
+          
       </div>
     </main>
 

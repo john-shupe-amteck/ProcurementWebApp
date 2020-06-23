@@ -1,0 +1,126 @@
+colors {
+  color: #383D3B;
+  color: #EEE5E9;
+  color: #7C7C7C;
+  color: #92DCE5;
+  color: #52DEE5;
+}
+
+main {
+  margin: 2%;
+  max-width: none;
+  height: 100%;
+  padding: 10px;
+}
+
+.dropbtn {
+  background-color: rgba(0,0,0,.2);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: #EEE5E9;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #7C7C7C80;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 50px;
+}
+
+.dropdown-content a {
+  float: none;
+  color: #EEE5E9;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.content-container {
+  border: #EEE5E9 5px inset;
+  border-radius: 2px;
+  background-color: #EEE5E980;
+  margin: .5%;
+}
+
+table {
+  background-color: #EEE5E980;
+  color: black;
+  box-shadow: inset;
+  overflow: scroll;
+  text-align: left;
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+  table-layout: auto;
+}
+td {
+  padding: 1px;
+}
+tr {
+  height: 25px;
+}
+tr:nth-child(even) {
+  background-color: #EEE5E970;
+}
+tr:hover {
+  background-color: #383D3B80;
+  color: #EEE5E9;
+}
+
+th, td {
+  border-bottom: 1px solid #383D3B;
+}
+
+.jobs {
+  width: 20%;
+  height: auto;
+  min-width: 205px;
+  float: left;
+}
+
+a.job-link {
+  color: black;
+  margin: 0px;
+  margin-left: 5px;
+}
+a.job-link:hover {
+  color: #EEE5E9;
+  background-color: none;
+}
+
+div.data {
+  float: left;
+  width: 78%;
+  height: 98%;
+}
