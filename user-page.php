@@ -1,11 +1,13 @@
 <?php
-include 'php/config.php';
-include 'php/insert.php';
+  include('php/config.php');
+  session_start();
+  if (is_null($_SESSION['user_id'])) [
+    header("Location: index.php")
+  ]
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +29,7 @@ include 'php/insert.php';
       <a class="home-link" href="index.php">Amteck Procurement</a>
 
       <div class="dropdown" style="float:right;">
-        <a href="#" class="dropbtn">Profile</a>
+        <a href="#" class="dropbtn"><?php echo $_SESSION['user_name']?></a>
         <div class="dropdown-content">
           <a href="index.php">Logout</a>
           <a href="#">Link 2</a>
@@ -35,21 +37,48 @@ include 'php/insert.php';
         </div>
       </div>
 
+      <?php
+        if ($_SESSION['is_admin']) {
+          echo '<div class="dropdown" style="float:right;">';
+          echo '  <a href="#" class="dropbtn">Admin</a>';
+          echo '  <div class="dropdown-content">';
+          echo '    <a href="#">Add User</a>';
+          echo '    <a href="#">Link 2</a>';
+          echo '    <a href="#">Link 3</a>';
+          echo '  </div>';
+          echo '</div>';
+        }
+      ?>
+
       <a class="link" id="news" href="news.php">News</a>
       <a class="link" id="contact" href="contact.php">Contact</a>
       <a class="link" id="about" href="about.php">About</a>
     </header>
 
 
-    <main class="login-form">
-      <form action="insert.php" method="post">
-        Value1: <input type="text" name="field1"/><br/>
-        Value2: <input type="text" name = "field2" /><br/>
-        Value3: <input type="text" name = "field3" /><br/>
-        Value4: <input type="text" name = "field4" /><br/>
-        Value5: <input type="text" name = "field5" /><br/>
-        <input type="submit"/>
-      </form>
+    <main class="main-area">
+      <div class="content-container jobs">     
+        <?php
+          $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
+
+          $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .")";
+          $result = mysqli_query($con, $query);
+
+          echo "<table>
+                  <tr>
+                  <th>Job ID</th>
+                  <th>Job Name</th>
+                  </tr>";
+          while ($row = mysqli_fetch_array($result))
+          {
+            echo "<tr>";
+            echo "<td>". $row['ID'] . "</td>";
+            echo "<td><a class='job-link' href='#'>". $row['name']  . "</a></td>";
+            echo "</tr>";
+          }
+          echo "</table>";        
+        ?>
+      </div>
     </main>
 
 
