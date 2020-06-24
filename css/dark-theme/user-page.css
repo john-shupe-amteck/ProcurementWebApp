@@ -91,7 +91,7 @@ main {
   width: 99%;
   height: 50%;
   float: left;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 #options {
@@ -115,9 +115,6 @@ table {
   text-align: left;
   border-collapse: collapse;
 }
-td {
-  padding: 1px;
-}
 tr {
   height: 25px;
   position: relative;
@@ -132,6 +129,7 @@ tr:hover {
 th,
 td {
   border-bottom: 1px solid #383D3B;
+  padding: 1px;
 }
 tbody {
   height: auto;
@@ -160,3 +158,4 @@ input:hover {
     width: calc(98% - 205px);
   }
 }
+
