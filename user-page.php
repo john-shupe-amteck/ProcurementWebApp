@@ -3,7 +3,7 @@
   
   if (is_null($_SESSION['user_id'])) [
     header("Location: index.php")
-  ]
+  ];
 ?>
 
 <!DOCTYPE html>
@@ -46,14 +46,14 @@
 
       <?php
         if ($_SESSION['is_admin']) {
-          echo '<div class="dropdown" style="float:right;">';
-          echo '  <a href="#" class="dropbtn">Admin</a>';
-          echo '  <div class="dropdown-content">';
-          echo '    <a href="#">Add User</a>';
-          echo '    <a href="#">Link 2</a>';
-          echo '    <a href="#">Link 3</a>';
-          echo '  </div>';
-          echo '</div>';
+          echo '<div class="dropdown" style="float:right;">
+                  <a href="#" class="dropbtn">Admin</a>
+                  <div class="dropdown-content">
+                    <a href="#">Add User</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                  </div>
+                </div>';
         }
       ?>
 
@@ -64,30 +64,57 @@
 
 
     <main class="main-area">
-      <div class="content-container jobs">     
-        <?php
-          $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
+      <div id="options-panel">
+        <div class="content-container" id="jobs">     
+          <?php
+            $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
 
-          $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .") ORDER BY A.ID";
-          $result = mysqli_query($con, $query);
+            $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .") ORDER BY A.ID";
+            $result = mysqli_query($con, $query);
 
-          echo "<table>
-                  <tr>
-                  <th>Job ID</th>
-                  <th>Job Name</th>
-                  </tr>";
-          while ($row = mysqli_fetch_array($result))
-          {
-            echo "<tr>";
-            echo "<td>". $row['ID'] . "</td>";
-            echo "<td><a class='job-link' href='#'>". $row['name']  . "</a></td>";
-            echo "</tr>";
-          }
-          echo "</table>";        
-        ?>
+            echo "<table>
+                    <thead>
+                      <tr>
+                        <th>Job ID</th>
+                        <th>Job Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+            while ($row = mysqli_fetch_array($result))
+            {
+              echo '<tr id="'. $row["ID"] .'">
+                      <td>'. $row["ID"] . '</td>
+                      <td>
+                        <form action="user-page.php" method="get">
+                          <input type="checkbox"
+                            name="job"
+                            value="'. $row["ID"] .'"
+                            checked
+                            hidden>
+                          <input type="submit" id="'. $row["ID"] .'" value="'. $row["name"] .'">
+                        </form>
+                      </td>
+                    </tr>';
+            }
+            echo "</tbody>
+                </table>";        
+          ?>
+        </div>
+
+
+        <div class="content-container" id="options">
+
+        </div>
       </div>
-      <div class="content-container data">
-          
+
+
+      <div class="content-container" id="data">
+          <?php
+          if (isset($_GET['job'])) {
+            $job = $_GET['job'];
+            echo '<h1>'.$job.'</h1>';
+          }
+          ?>
       </div>
     </main>
 
@@ -95,5 +122,9 @@
     <footer class="bottom-nav">
       <p>Copyright 2020</p>
     </footer>
+    <script src="app.js"></script>
+    <?php
+    echo '<script>document.getElementById("'.$_GET['job'].'").style.backgroundColor = "gray"</script>';
+    ?>
   </body>
 </html>

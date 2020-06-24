@@ -6,13 +6,16 @@ colors {
   color: #52DEE5;
 }
 
+/* black box in center of screen */
 main {
-  margin: 2%;
-  max-width: none;
   height: 100%;
-  padding: 10px;
+  width: 96%;
+  margin: 2%;
+  padding: 1%;
+  max-width: none;
 }
 
+/* NavBar dropdown buttons */
 .dropbtn {
   background-color: rgba(0,0,0,.2);
   color: white;
@@ -66,29 +69,58 @@ main {
   display: block;
 }
 
+/* General styling for containers */
 .content-container {
   border: #EEE5E9 5px inset;
   border-radius: 2px;
   background-color: #EEE5E980;
-  margin: .5%;
+  margin:.5%;
+  display: block;
+}
+
+/* Layout Formatting */
+#options-panel {
+  width: 21%;
+  height: 98%;
+  display: inline-block;
+  min-width: 205px;
+  vertical-align: top;
+  padding-top: .5%;
+}
+#jobs {
+  width: 99%;
+  height: 50%;
+  float: left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#options {
+  width: 99%;
+  height: 50%;
+  float: left;
+}
+
+
+#data {
+  width: 76%;
+  height: 98%;
+  display: inline-block;
 }
 
 table {
+  width: 100%;
   background-color: #EEE5E980;
   color: black;
   box-shadow: inset;
-  overflow: scroll;
   text-align: left;
   border-collapse: collapse;
-  width: 100%;
-  height: 100%;
-  table-layout: auto;
 }
 td {
   padding: 1px;
 }
 tr {
   height: 25px;
+  position: relative;
 }
 tr:nth-child(even) {
   background-color: #EEE5E970;
@@ -97,30 +129,34 @@ tr:hover {
   background-color: #383D3B80;
   color: #EEE5E9;
 }
-
-th, td {
+th,
+td {
   border-bottom: 1px solid #383D3B;
 }
-
-.jobs {
-  width: 20%;
+tbody {
   height: auto;
-  min-width: 205px;
-  float: left;
+}
+thead {
+  display: table-header-group;
 }
 
-a.job-link {
-  color: black;
-  margin: 0px;
-  margin-left: 5px;
+/* table line styling */
+input {
+  border: none;
+  text-align: left;
 }
-a.job-link:hover {
+input:hover {
+  background-color: #383D3B;
   color: #EEE5E9;
-  background-color: none;
 }
 
-div.data {
-  float: left;
-  width: 78%;
-  height: 98%;
+.active-button {
+  background: pink !important;
+}
+
+/* rules for differing screen sizes */
+@media screen and (max-width: 1150px) {
+  div#data {
+    width: calc(98% - 205px);
+  }
 }

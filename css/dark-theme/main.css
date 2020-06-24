@@ -14,6 +14,7 @@ colors {
 
 html {
   height: 85%;
+  overflow-x: hidden;
 }
 
 body {
