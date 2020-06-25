@@ -96,6 +96,11 @@
                             value="'. $row['name'] .'"
                             checked
                             hidden>
+                          <input type"checkbox"
+                            name="code"
+                            value="Select Sort Code"
+                            checked
+                            hidden>
                           <input type="submit" id="'. $row["ID"] .'" value="'. $row["name"] .'">
                         </form>
                       </td>
@@ -108,7 +113,41 @@
 
 
         <div class="content-container" id="options">
+          <form action="user-page.php" method="get">
 
+            <?php 
+            if (isset($_GET['job'])){
+              echo '
+              <input type="checkbox"
+                name="job"
+                value="'. $_GET["job"] .'"
+                checked
+                hidden>
+              ';
+            }
+            if (isset($_GET['job'])) {
+              echo '
+              <input type="checkbox"
+                name="job_name"
+                value="'. $_GET["job_name"] .'"
+                checked
+                hidden>
+              ';
+            }
+            if (isset($_GET['code'])) {
+              echo '
+              Code: <input type="text" name="code" placeholder="'. $_GET['code']. '"><br>
+              ';
+            } else {
+              echo '
+              Code: <input type="text" name="code" placeholder="Select Sort Code"><br>
+              ';
+            }
+
+            ?>
+
+
+          </form>
         </div>
       </div>
 
@@ -120,16 +159,26 @@
             $job = $_GET['job'];
             $job_name = $_GET['job_name'];
 
-            $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
-                      FROM `budget-details` A 
-                      WHERE A.budgetID in (
-                        SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
-                      ) AND ( 
-                        A.`sort-codeID` = 130
-                        or
-                        A.`sort-codeID` = 110
-                      )
-                      GROUP BY itemID ORDER BY qty DESC limit 20";
+            if ($_GET['code'] != "Select Sort Code") {
+              $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
+                        FROM `budget-details` A 
+                        WHERE A.budgetID in (
+                          SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
+                        ) AND ( 
+                          A.`sort-codeID` =".$_GET['code']."
+                        )
+                        GROUP BY itemID
+                        ORDER BY qty DESC";
+            } else {
+              $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
+              FROM `budget-details` A 
+              WHERE A.budgetID in (
+                SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
+              )
+              GROUP BY itemID
+              ORDER BY qty DESC
+              LIMIT 50";
+            }
             $result = mysqli_query($con, $query);
 
             echo "

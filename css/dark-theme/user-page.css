@@ -140,11 +140,11 @@ thead {
 }
 
 /* table line styling */
-input {
+#jobs input {
   border: none;
   text-align: left;
 }
-input:hover {
+#jobs input:hover {
   background-color: #383D3B;
   color: #EEE5E9;
 }
@@ -161,6 +161,10 @@ td.table-cost {
 td.table-quantity {
   text-align: right;
   padding-right: 80px;
+}
+
+#options input{
+  width: 50%;
 }
 
 /* rules for differing screen sizes */
