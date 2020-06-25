@@ -91,6 +91,11 @@
                             value="'. $row["ID"] .'"
                             checked
                             hidden>
+                          <input type="checkbox"
+                            name="job_name"
+                            value="'. $row['name'] .'"
+                            checked
+                            hidden>
                           <input type="submit" id="'. $row["ID"] .'" value="'. $row["name"] .'">
                         </form>
                       </td>
@@ -110,9 +115,46 @@
 
       <div class="content-container" id="data">
           <?php
+          $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
           if (isset($_GET['job'])) {
             $job = $_GET['job'];
-            echo '<h1>'.$job.'</h1>';
+            $job_name = $_GET['job_name'];
+
+            $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
+                      FROM `budget-details` A 
+                      WHERE A.budgetID in (
+                        SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
+                      ) AND ( 
+                        A.`sort-codeID` = 130
+                        or
+                        A.`sort-codeID` = 110
+                      )
+                      GROUP BY itemID ORDER BY qty DESC limit 20";
+            $result = mysqli_query($con, $query);
+
+            echo "
+            <h1 style='text-align:left;'>".$job_name."</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th class='table-quantity'>Quantity</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>";
+            while ($row = mysqli_fetch_array($result)) {
+              echo "
+                <tr>
+                  <td>". $row['description'] ."</td>
+                  <td class='table-quantity'>". number_format($row['qty'])                       ."</td>
+                  <td class='table-cost'>$".    number_format($row['cost'],2) ."/". $row['unit'] ."</td>
+                </tr>
+              ";
+            }
+            echo "
+              </tbody>
+            </table>";
           }
           ?>
       </div>

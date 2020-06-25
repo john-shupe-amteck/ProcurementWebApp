@@ -104,7 +104,8 @@ main {
 #data {
   width: 76%;
   height: 98%;
-  display: inline-block;
+  float: right;
+  overflow-y: auto;
 }
 
 table {
@@ -150,6 +151,16 @@ input:hover {
 
 .active-button {
   background: pink !important;
+}
+
+td.table-cost {
+  width: 50px;
+  text-align: right;
+  padding-right: 700px;
+}
+td.table-quantity {
+  text-align: right;
+  padding-right: 80px;
 }
 
 /* rules for differing screen sizes */

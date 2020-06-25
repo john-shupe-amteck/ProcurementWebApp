@@ -1,6 +1,5 @@
 <?php
   include('php/config.php');
-  session_start();
 
   if (isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -43,10 +42,10 @@
     <?php
     if ($_SESSION['theme'] == "light") {
         echo '<link rel="stylesheet" href="css/light-theme/main.css">';
-        echo '<link rel="stylesheet" href="css/light-theme/index.css">';
+        echo '<link rel="stylesheet" href="css/light-theme/register.css">';
       } elseif ($_SESSION['theme'] == "dark") {
         echo '<link rel="stylesheet" href="css/dark-theme/main.css">';
-        echo '<link rel="stylesheet" href="css/dark-theme/index.css">';
+        echo '<link rel="stylesheet" href="css/dark-theme/register.css">';
       }
     ?>
     <link rel="icon" href="img/amtecklogo.PNG">
