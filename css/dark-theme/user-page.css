@@ -108,6 +108,7 @@ main {
   overflow-y: auto;
 }
 
+/* TABLE STYLING */
 table {
   width: 100%;
   background-color: #EEE5E980;
@@ -119,6 +120,7 @@ table {
 tr {
   height: 25px;
   position: relative;
+  border-bottom: 1px solid #383D3B;
 }
 tr:nth-child(even) {
   background-color: #EEE5E970;
@@ -129,7 +131,6 @@ tr:hover {
 }
 th,
 td {
-  border-bottom: 1px solid #383D3B;
   padding: 1px;
 }
 tbody {
@@ -137,6 +138,26 @@ tbody {
 }
 thead {
   display: table-header-group;
+  text-align: center;
+}
+
+.budget-cost,
+.po-cost,
+.variance {
+  width: 100px;
+}
+.budget-quantity,
+.po-quantity{
+  width: 200px;
+}
+td.budget-quantity,
+td.budget-cost,
+td.po-quantity,
+td.po-cost,
+td.variance{
+  text-align: right;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* table line styling */
@@ -149,23 +170,10 @@ thead {
   color: #EEE5E9;
 }
 
-.active-button {
-  background: pink !important;
-}
-
-td.table-cost {
-  width: 50px;
-  text-align: right;
-  padding-right: 700px;
-}
-td.table-quantity {
-  text-align: right;
-  padding-right: 80px;
-}
-
 #options input{
   width: 50%;
 }
+
 
 /* rules for differing screen sizes */
 @media screen and (max-width: 1150px) {

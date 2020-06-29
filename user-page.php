@@ -25,7 +25,7 @@
 
     <link rel="icon" href="img/amtecklogo.PNG">
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <title>Amteck Procurement</title>
   </head>
@@ -65,6 +65,7 @@
 
     <main class="main-area">
       <div id="options-panel">
+      <!-- TODO: add a reference for new users who have no jobs to view.  -->
         <div class="content-container" id="jobs">     
           <?php
             $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
@@ -136,17 +137,15 @@
             }
             if (isset($_GET['code'])) {
               echo '
-              Code: <input type="text" name="code" placeholder="'. $_GET['code']. '"><br>
+              Code: <input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="'. $_GET['code']. '"><br>
               ';
             } else {
               echo '
-              Code: <input type="text" name="code" placeholder="Select Sort Code"><br>
+              Code: <input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="Select Sort Code"><br>
               ';
             }
 
             ?>
-
-
           </form>
         </div>
       </div>
@@ -160,46 +159,134 @@
             $job_name = $_GET['job_name'];
 
             if ($_GET['code'] != "Select Sort Code") {
-              $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
-                        FROM `budget-details` A 
-                        WHERE A.budgetID in (
-                          SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
-                        ) AND ( 
-                          A.`sort-codeID` =".$_GET['code']."
-                        )
-                        GROUP BY itemID
-                        ORDER BY qty DESC";
+              // Query with sort code filter
+              $query = "SELECT
+                budgeted.descrip   as name,
+                budgeted.quantity  as budqty,
+                budgeted.unit      as budunit,
+                budgeted.cost      as budcost,
+                purchased.quantity as poqty,
+                purchased.unit     as pounit,
+                purchased.cost     as pocost,
+                budgeted.quantity - purchased.quantity as variance
+                FROM (
+                  SELECT
+                    itemID,
+                    max(description) as descrip,
+                    sum(quantity) as quantity,
+                    max(`cost-unitID`) as unit,
+                    avg(`unit-cost`) as cost
+                  FROM 
+                    `budget-details`
+                  WHERE
+                    `budget-details`.`budgetID` IN(
+                      SELECT
+                        budgets.ID
+                      FROM
+                        budgets
+                      WHERE
+                        budgets.jobID = '". $job ."'
+                  ) and `budget-details`.`sort-codeID`=".$_GET['code']."
+                  GROUP BY
+                    itemID
+                  ) as budgeted, (
+                  SELECT
+                    itemID,
+                    sum(quantity) as quantity,
+                    max(`cost-unitID`) as unit,
+                    avg(`unit-cost`) as cost
+                  FROM
+                    `purchase-details`
+                  WHERE
+                    jobID = '".$job."' and `purchase-details`.`sort-codeID`=".$_GET['code']."
+                  GROUP BY 
+                    itemID
+                  ) as purchased
+                WHERE budgeted.itemID = purchased.itemID
+                ORDER BY budgeted.quantity DESC
+              ";
             } else {
-              $query = "SELECT A.description, sum(quantity) as qty, avg(`unit-cost`) as cost, `cost-unitID` as unit
-              FROM `budget-details` A 
-              WHERE A.budgetID in (
-                SELECT B.ID FROM budgets B WHERE B.jobID='". $job ."'
-              )
-              GROUP BY itemID
-              ORDER BY qty DESC
-              LIMIT 50";
+              // Query without sort code filter
+              $query = "SELECT
+                          budgeted.descrip   as name,
+                          budgeted.quantity  as budqty,
+                          budgeted.unit      as budunit,
+                          budgeted.cost      as budcost,
+                          purchased.quantity as poqty,
+                          purchased.unit     as pounit,
+                          purchased.cost     as pocost,
+                          budgeted.quantity - purchased.quantity as variance
+                        FROM (
+                          SELECT
+                            itemID,
+                            max(description) as descrip,
+                            sum(quantity) as quantity,
+                            max(`cost-unitID`) as unit,
+                            avg(`unit-cost`) as cost
+                          FROM 
+                            `budget-details`
+                          WHERE
+                            `budget-details`.`budgetID` IN(
+                              SELECT
+                                budgets.ID
+                              FROM
+                                budgets
+                              WHERE
+                                budgets.jobID = '". $job ."'
+                          )
+                          GROUP BY
+                            itemID
+                          ) as budgeted, (
+                              SELECT
+                                itemID,
+                                sum(quantity) as quantity,
+                                max(`cost-unitID`) as unit,
+                                avg(`unit-cost`) as cost
+                              FROM
+                                `purchase-details`
+                              WHERE
+                                jobID = '".$job."'
+                                GROUP BY 
+                                itemID
+                          ) as purchased
+                        WHERE budgeted.itemID = purchased.itemID
+                        ORDER BY budgeted.quantity DESC
+                        LIMIT 50";
             }
-            $result = mysqli_query($con, $query);
 
+            $result = mysqli_query($con, $query);
+            // table header for data area
             echo "
-            <h1 style='text-align:left;'>".$job_name."</h1>
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th class='table-quantity'>Quantity</th>
-                  <th>Cost</th>
-                </tr>
-              </thead>
-              <tbody>";
+              <h1 style='text-align:left;'>".$job_name."</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th class='item-name'>Item</th>
+                    <th class='budget-quantity'>Budget Quantity</th>
+                    <th class='budget-cost'>Cost</th>
+                    <th class='po-quantity'>Purchased Quantity</th>
+                    <th class='po-cost'>Cost</th>
+                    <th class='variance'>Variance</th>
+                  </tr>
+                </thead>
+                <tbody>";
             while ($row = mysqli_fetch_array($result)) {
               echo "
                 <tr>
-                  <td>". $row['description'] ."</td>
-                  <td class='table-quantity'>". number_format($row['qty'])                       ."</td>
-                  <td class='table-cost'>$".    number_format($row['cost'],2) ."/". $row['unit'] ."</td>
-                </tr>
-              ";
+                  <td class='item-name       monospace'>".$row['name']."</td>
+                  <td class='budget-quantity monospace'>".number_format($row['budqty'])."</td>
+                  <td class='budget-cost     monospace'>$".number_format($row['budcost'],2) ."/". $row['budunit']."</td>
+                  <td class='po-quantity     monospace'>".number_format($row['poqty'])."</td>
+                  <td class='po-cost         monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>";
+              if ($row['variance']>0){
+                echo "
+                    <td class='variance        monospace'>".number_format($row['variance'])."</td>
+                  </tr>";
+              } elseif ($row['variance']<0) {
+                echo "
+                    <td class='variance        monospace' style='color:red'>".number_format($row['variance'])."</td>
+                  </tr>";
+              }
             }
             echo "
               </tbody>
