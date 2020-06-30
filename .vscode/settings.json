@@ -2,4 +2,13 @@
     "editor.minimap.enabled": false,
     "editor.tabSize": 2,
     "editor.hover.enabled": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.sql": true,
+        "**/*.md": true
+    }
 }

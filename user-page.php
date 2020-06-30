@@ -1,8 +1,11 @@
+<!-- Setup php -->
 <?php
   include('php/config.php');
+  include('php/user-page-data-query.php');
   
+  // makes sure a user is logged in before navigating farther into the app
   if (is_null($_SESSION['user_id'])) [
-    header("Location: index.php")
+    header("Location: index.php")                                                                           // redirects back to login page
   ];
 ?>
 
@@ -10,68 +13,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <?php
-      if ($_SESSION['theme'] == "light") {
+<!-- assign meta values -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- php to switch between light and dark styles -->
+  <?php
+      if ($_SESSION['theme'] == "light") { // light styling
         echo '<link rel="stylesheet" href="css/light-theme/main.css">';
         echo '<link rel="stylesheet" href="css/light-theme/user-page.css">';
-      } elseif ($_SESSION['theme'] == "dark") {
+      } elseif ($_SESSION['theme'] == "dark") { // dark styling
         echo '<link rel="stylesheet" href="css/dark-theme/main.css">';
         echo '<link rel="stylesheet" href="css/dark-theme/user-page.css">';
       }
     ?>
+  <!-- link to amteck logo for tab -->
+  <link rel="icon" href="img/amtecklogo.PNG">
+  <!-- link for googl fonts TODO: move into the main .css -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="img/amtecklogo.PNG">
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-
-    <title>Amteck Procurement</title>
-  </head>
-
-
-  <body>
-    <header class="top-nav">
-      <a class="home-link" href="index.php">Amteck Procurement</a>
-
-      <div class="dropdown" style="float:right;">
-        <a href="#" class="dropbtn"><?php echo $_SESSION['user_name']?></a>
-        <div class="dropdown-content">
-          <a href="index.php">Logout</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
-
-      <?php
-        if ($_SESSION['is_admin']) {
-          echo '<div class="dropdown" style="float:right;">
-                  <a href="#" class="dropbtn">Admin</a>
-                  <div class="dropdown-content">
-                    <a href="#">Add User</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
-                </div>';
-        }
-      ?>
-
-      <a class="link" id="news" href="news.php">News</a>
-      <a class="link" id="contact" href="contact.php">Contact</a>
-      <a class="link" id="about" href="about.php">About</a>
-    </header>
+  <title>Amteck Procurement</title>
+</head>
 
 
-    <main class="main-area">
-      <div id="options-panel">
+<body>
+  <!-- header contains the top navigation bar for the screen -->
+  <?php include('php/header.php'); ?>
+
+  <main class="main-area">
+    <div id="options-panel">
       <!-- TODO: add a reference for new users who have no jobs to view.  -->
-        <div class="content-container" id="jobs">     
-          <?php
+      <div class="content-container" id="jobs">
+        <?php
             $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
 
             $query = "SELECT A.* FROM jobs A WHERE A.ID in (SELECT B.jobID FROM permissions B WHERE B.userID=". $_SESSION['user_id'] .") ORDER BY A.ID";
             $result = mysqli_query($con, $query);
+
 
             echo "<table>
                     <thead>
@@ -84,7 +62,7 @@
             while ($row = mysqli_fetch_array($result))
             {
               echo '<tr id="'. $row["ID"] .'">
-                      <td>'. $row["ID"] . '</td>
+                      <td><a href="job-page.php?job='.$row["ID"].'">'. $row["ID"] . '</a></td>
                       <td>
                         <form action="user-page.php" method="get">
                           <input type="checkbox"
@@ -110,13 +88,13 @@
             echo "</tbody>
                 </table>";        
           ?>
-        </div>
+      </div>
 
+      <!-- Options Div for filter inputs -->
+      <div class="content-container" id="options">
+        <form action="user-page.php" method="get">
 
-        <div class="content-container" id="options">
-          <form action="user-page.php" method="get">
-
-            <?php 
+          <?php 
             if (isset($_GET['job'])){
               echo '
               <input type="checkbox"
@@ -146,115 +124,19 @@
             }
 
             ?>
-          </form>
-        </div>
+        </form>
       </div>
+    </div>
 
 
-      <div class="content-container" id="data">
-          <?php
-          $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
+    <div class="content-container" id="data">
+      <?php
           if (isset($_GET['job'])) {
             $job = $_GET['job'];
             $job_name = $_GET['job_name'];
 
-            if ($_GET['code'] != "Select Sort Code") {
-              // Query with sort code filter
-              $query = "SELECT
-                budgeted.descrip   as name,
-                budgeted.quantity  as budqty,
-                budgeted.unit      as budunit,
-                budgeted.cost      as budcost,
-                purchased.quantity as poqty,
-                purchased.unit     as pounit,
-                purchased.cost     as pocost,
-                budgeted.quantity - purchased.quantity as variance
-                FROM (
-                  SELECT
-                    itemID,
-                    max(description) as descrip,
-                    sum(quantity) as quantity,
-                    max(`cost-unitID`) as unit,
-                    avg(`unit-cost`) as cost
-                  FROM 
-                    `budget-details`
-                  WHERE
-                    `budget-details`.`budgetID` IN(
-                      SELECT
-                        budgets.ID
-                      FROM
-                        budgets
-                      WHERE
-                        budgets.jobID = '". $job ."'
-                  ) and `budget-details`.`sort-codeID`=".$_GET['code']."
-                  GROUP BY
-                    itemID
-                  ) as budgeted, (
-                  SELECT
-                    itemID,
-                    sum(quantity) as quantity,
-                    max(`cost-unitID`) as unit,
-                    avg(`unit-cost`) as cost
-                  FROM
-                    `purchase-details`
-                  WHERE
-                    jobID = '".$job."' and `purchase-details`.`sort-codeID`=".$_GET['code']."
-                  GROUP BY 
-                    itemID
-                  ) as purchased
-                WHERE budgeted.itemID = purchased.itemID
-                ORDER BY budgeted.quantity DESC
-              ";
-            } else {
-              // Query without sort code filter
-              $query = "SELECT
-                          budgeted.descrip   as name,
-                          budgeted.quantity  as budqty,
-                          budgeted.unit      as budunit,
-                          budgeted.cost      as budcost,
-                          purchased.quantity as poqty,
-                          purchased.unit     as pounit,
-                          purchased.cost     as pocost,
-                          budgeted.quantity - purchased.quantity as variance
-                        FROM (
-                          SELECT
-                            itemID,
-                            max(description) as descrip,
-                            sum(quantity) as quantity,
-                            max(`cost-unitID`) as unit,
-                            avg(`unit-cost`) as cost
-                          FROM 
-                            `budget-details`
-                          WHERE
-                            `budget-details`.`budgetID` IN(
-                              SELECT
-                                budgets.ID
-                              FROM
-                                budgets
-                              WHERE
-                                budgets.jobID = '". $job ."'
-                          )
-                          GROUP BY
-                            itemID
-                          ) as budgeted, (
-                              SELECT
-                                itemID,
-                                sum(quantity) as quantity,
-                                max(`cost-unitID`) as unit,
-                                avg(`unit-cost`) as cost
-                              FROM
-                                `purchase-details`
-                              WHERE
-                                jobID = '".$job."'
-                                GROUP BY 
-                                itemID
-                          ) as purchased
-                        WHERE budgeted.itemID = purchased.itemID
-                        ORDER BY budgeted.quantity DESC
-                        LIMIT 50";
-            }
+            $result = get_data_table($job, $con, $_GET['code']);
 
-            $result = mysqli_query($con, $query);
             // table header for data area
             echo "
               <h1 style='text-align:left;'>".$job_name."</h1>
@@ -270,6 +152,8 @@
                   </tr>
                 </thead>
                 <tbody>";
+
+            // print results to rows of data table
             while ($row = mysqli_fetch_array($result)) {
               echo "
                 <tr>
@@ -277,32 +161,39 @@
                   <td class='budget-quantity monospace'>".number_format($row['budqty'])."</td>
                   <td class='budget-cost     monospace'>$".number_format($row['budcost'],2) ."/". $row['budunit']."</td>
                   <td class='po-quantity     monospace'>".number_format($row['poqty'])."</td>
-                  <td class='po-cost         monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>";
+                  <td class='po-cost         monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>"
+              ;
+              // color positive variance as normal
               if ($row['variance']>0){
                 echo "
-                    <td class='variance        monospace'>".number_format($row['variance'])."</td>
-                  </tr>";
+                  <td class='variance        monospace'>".number_format($row['variance'])."</td>
+                </tr>"
+                ;
+              // color negative variance red
               } elseif ($row['variance']<0) {
                 echo "
-                    <td class='variance        monospace' style='color:red'>".number_format($row['variance'])."</td>
-                  </tr>";
+                  <td class='variance        monospace' style='color:red'>".number_format($row['variance'])."</td>
+                </tr>";
               }
             }
+            // close table
             echo "
               </tbody>
             </table>";
           }
-          ?>
-      </div>
-    </main>
+          ?>  <!-- exit php -->
+    </div>
+  </main>
 
 
-    <footer class="bottom-nav">
-      <p>Copyright 2020</p>
-    </footer>
-    <script src="app.js"></script>
-    <?php
+  <footer class="bottom-nav">
+    <p>Copyright 2020</p>
+  </footer>
+  <script src="app.js"></script>
+  <!-- php to color the active job button a different color -->
+  <?php
     echo '<script>document.getElementById("'.$_GET['job'].'").style.backgroundColor = "gray"</script>';
     ?>
-  </body>
+</body>
+
 </html>
