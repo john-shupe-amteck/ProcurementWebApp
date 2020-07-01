@@ -1,102 +1,160 @@
 <?php
-function get_data_table($jobid, $connection1, $code) {
-  if (is_numeric($code)) {
-    // Query with sort code filter
-    $query = "SELECT
-    budgeted.descrip   as name,
-    budgeted.quantity  as budqty,
-    budgeted.unit      as budunit,
-    budgeted.cost      as budcost,
-    purchased.quantity as poqty,
-    purchased.unit     as pounit,
-    purchased.cost     as pocost,
-    budgeted.quantity - purchased.quantity as variance
-    FROM (
+function get_data_table($jobid, $connection1, $code, $description) {
+
+  
+
+  // Query where code = TRUE but description = FALSE
+  if (is_numeric($code) && ($description=="Partial Description" || $description=="")) {
+
+    // Update budgeted view
+    $query = "CREATE or REPLACE VIEW budgeted AS
       SELECT
-        itemID,
-        max(description) as descrip,
-        sum(quantity) as quantity,
-        max(`cost-unitID`) as unit,
-        avg(`unit-cost`) as cost
-      FROM 
-        `budget-details`
-      WHERE
-        `budget-details`.`budgetID` IN(
-          SELECT
-            budgets.ID
-          FROM
-            budgets
-          WHERE
-            budgets.jobID = '". $jobid ."'
-      ) and `budget-details`.`sort-codeID`=".$code."
-      GROUP BY
-        itemID
-      ) as budgeted, (
+        `procurement-web-app`.`budget-details`.`itemID` AS `itemID`,
+        max(`procurement-web-app`.`budget-details`.`description`) AS `descrip`,
+        sum(`procurement-web-app`.`budget-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`budget-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`budget-details`.`unit-cost`) AS `cost`
+      from `procurement-web-app`.`budget-details` 
+      where `procurement-web-app`.`budget-details`.`budgetID` in (
+        select `procurement-web-app`.`budgets`.`ID` 
+        from `procurement-web-app`.`budgets` 
+        where `procurement-web-app`.`budgets`.`jobID` = '".$jobid."' and
+          `budget-details`.`sort-codeID`=".$code."
+      ) 
+      group by `procurement-web-app`.`budget-details`.`itemID` 
+      order by sum(`procurement-web-app`.`budget-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Update purchased view
+    $query = "CREATE or REPLACE VIEW purchased AS
+      select `procurement-web-app`.`purchase-details`.`itemID` AS `itemID`,
+        sum(`procurement-web-app`.`purchase-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`purchase-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`purchase-details`.`unit-cost`) AS `cost` 
+      from `procurement-web-app`.`purchase-details` 
+      where `procurement-web-app`.`purchase-details`.`jobID` = '".$jobid."' and
+        `purchase-details`.`sort-codeID` = ".$code."
+      group by `procurement-web-app`.`purchase-details`.`itemID` 
+      order by sum(`procurement-web-app`.`purchase-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Pull procurementreport view
+    $query = "SELECT * FROM procurementreport";
+
+
+
+  // Query where code = FALSE but description = TRUE 
+  } elseif ($code=="Select Sort Code" && (is_string($description) && $description != "Partial Description")) {
+
+    // Update budgeted view
+    $query = "CREATE or REPLACE VIEW budgeted AS
       SELECT
-        itemID,
-        sum(quantity) as quantity,
-        max(`cost-unitID`) as unit,
-        avg(`unit-cost`) as cost
-      FROM
-        `purchase-details`
-      WHERE
-        jobID = '".$jobid."' and `purchase-details`.`sort-codeID`=".$code."
-      GROUP BY 
-        itemID
-      ) as purchased
-    WHERE budgeted.itemID = purchased.itemID
-    ORDER BY budgeted.quantity DESC
-  ";
+        `procurement-web-app`.`budget-details`.`itemID` AS `itemID`,
+        max(`procurement-web-app`.`budget-details`.`description`) AS `descrip`,
+        sum(`procurement-web-app`.`budget-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`budget-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`budget-details`.`unit-cost`) AS `cost`
+      from `procurement-web-app`.`budget-details` 
+      where `procurement-web-app`.`budget-details`.`budgetID` in (
+        select `procurement-web-app`.`budgets`.`ID` 
+        from `procurement-web-app`.`budgets` 
+        where `procurement-web-app`.`budgets`.`jobID` = '".$jobid."'
+      ) 
+      group by `procurement-web-app`.`budget-details`.`itemID` 
+      order by sum(`procurement-web-app`.`budget-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Update purchased view
+    $query = "CREATE or REPLACE VIEW purchased AS
+      select `procurement-web-app`.`purchase-details`.`itemID` AS `itemID`,
+        sum(`procurement-web-app`.`purchase-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`purchase-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`purchase-details`.`unit-cost`) AS `cost` 
+      from `procurement-web-app`.`purchase-details` 
+      where `procurement-web-app`.`purchase-details`.`jobID` = '".$jobid."'
+      group by `procurement-web-app`.`purchase-details`.`itemID` 
+      order by sum(`procurement-web-app`.`purchase-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Pull procurementreport view
+    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%'";
+
+
+  // Query where code = TRUE and description = TRUE
+  } elseif (is_numeric($code) && is_string($description)) {
+    // Update budgeted view
+    $query = "CREATE or REPLACE VIEW budgeted AS
+      SELECT
+        `procurement-web-app`.`budget-details`.`itemID` AS `itemID`,
+        max(`procurement-web-app`.`budget-details`.`description`) AS `descrip`,
+        sum(`procurement-web-app`.`budget-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`budget-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`budget-details`.`unit-cost`) AS `cost`
+      from `procurement-web-app`.`budget-details` 
+      where `procurement-web-app`.`budget-details`.`budgetID` in (
+        select `procurement-web-app`.`budgets`.`ID` 
+        from `procurement-web-app`.`budgets` 
+        where `procurement-web-app`.`budgets`.`jobID` = '".$jobid."' and
+          `budget-details`.`sort-codeID`=".$code."
+      ) 
+      group by `procurement-web-app`.`budget-details`.`itemID` 
+      order by sum(`procurement-web-app`.`budget-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Update purchased view
+    $query = "CREATE or REPLACE VIEW purchased AS
+      select `procurement-web-app`.`purchase-details`.`itemID` AS `itemID`,
+        sum(`procurement-web-app`.`purchase-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`purchase-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`purchase-details`.`unit-cost`) AS `cost` 
+      from `procurement-web-app`.`purchase-details` 
+      where `procurement-web-app`.`purchase-details`.`jobID` = '".$jobid."' and
+        `purchase-details`.`sort-codeID` = ".$code."
+      group by `procurement-web-app`.`purchase-details`.`itemID` 
+      order by sum(`procurement-web-app`.`purchase-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Pull procurementreport view
+    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%'";
+
+
+  // Query where code = FALSE and description = FALSE
   } else {
-    // Query without sort code filter
-    $query = "SELECT
-        budgeted.descrip   as name,
-        budgeted.quantity  as budqty,
-        budgeted.unit      as budunit,
-        budgeted.cost      as budcost,
-        purchased.quantity as poqty,
-        purchased.unit     as pounit,
-        purchased.cost     as pocost,
-        budgeted.quantity - purchased.quantity as variance
-      FROM (
-        SELECT
-          itemID,
-          max(description) as descrip,
-          sum(quantity) as quantity,
-          max(`cost-unitID`) as unit,
-          avg(`unit-cost`) as cost
-        FROM 
-          `budget-details`
-        WHERE
-          `budget-details`.`budgetID` IN(
-            SELECT
-              budgets.ID
-            FROM
-              budgets
-            WHERE
-              budgets.jobID = '". $jobid ."'
-        )
-        GROUP BY
-          itemID
-        ) as budgeted, (
-            SELECT
-              itemID,
-              sum(quantity) as quantity,
-              max(`cost-unitID`) as unit,
-              avg(`unit-cost`) as cost
-            FROM
-              `purchase-details`
-            WHERE
-              jobID = '".$jobid."'
-              GROUP BY 
-              itemID
-        ) as purchased
-      WHERE 
-        budgeted.itemID = purchased.itemID
-      ORDER BY budgeted.quantity DESC
-      LIMIT 50"
-    ;
+    // Update budgeted view
+    $query = "CREATE or REPLACE VIEW budgeted AS
+      SELECT
+        `procurement-web-app`.`budget-details`.`itemID` AS `itemID`,
+        max(`procurement-web-app`.`budget-details`.`description`) AS `descrip`,
+        sum(`procurement-web-app`.`budget-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`budget-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`budget-details`.`unit-cost`) AS `cost`
+      from `procurement-web-app`.`budget-details` 
+      where `procurement-web-app`.`budget-details`.`budgetID` in (
+        select `procurement-web-app`.`budgets`.`ID` 
+        from `procurement-web-app`.`budgets` 
+        where `procurement-web-app`.`budgets`.`jobID` = '".$jobid."'
+      ) 
+      group by `procurement-web-app`.`budget-details`.`itemID` 
+      order by sum(`procurement-web-app`.`budget-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Update purchased view
+    $query = "CREATE or REPLACE VIEW purchased AS
+      select `procurement-web-app`.`purchase-details`.`itemID` AS `itemID`,
+        sum(`procurement-web-app`.`purchase-details`.`quantity`) AS `quantity`,
+        max(`procurement-web-app`.`purchase-details`.`cost-unitID`) AS `unit`,
+        avg(`procurement-web-app`.`purchase-details`.`unit-cost`) AS `cost` 
+      from `procurement-web-app`.`purchase-details` 
+      where `procurement-web-app`.`purchase-details`.`jobID` = '".$jobid."'
+      group by `procurement-web-app`.`purchase-details`.`itemID` 
+      order by sum(`procurement-web-app`.`purchase-details`.`quantity`) desc";
+    mysqli_query($connection1, $query);
+
+    // Pull procurementreport view
+    $query = "SELECT * FROM procurementreport LIMIT 50";
   }
+
+
   $result = mysqli_query($connection1, $query);
   return $result;
 }

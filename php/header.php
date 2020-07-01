@@ -2,7 +2,7 @@
     <a class="home-link" href="index.php">Amteck Procurement</a>
 
     <div class="dropdown" style="float:right;">
-      <a href="#" class="dropbtn"><?php echo $_SESSION['user_name']?></a>
+      <a href="user-page.php" class="dropbtn"><?php echo $_SESSION['user_name']?></a>
       <div class="dropdown-content">
         <a href="index.php">Logout</a>
         <a href="#">Link 2</a>

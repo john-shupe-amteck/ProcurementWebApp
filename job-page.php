@@ -46,7 +46,7 @@
     <div class="content-container" id="report-selection">
       <table>
         <tr>
-          <th>Reports</th>
+          <th><?php echo $_GET['job']?></th>
         </tr>
         <tr id="Release Tracker">
           <td class="report-button">

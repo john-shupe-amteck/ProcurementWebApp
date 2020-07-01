@@ -2,11 +2,21 @@
 <?php
   include('php/config.php');
   include('php/user-page-data-query.php');
-  
+
   // makes sure a user is logged in before navigating farther into the app
   if (is_null($_SESSION['user_id'])) [
     header("Location: index.php")                                                                           // redirects back to login page
   ];
+  if (isset($_GET['description'])) {
+    if ($_GET['description'] == "") [
+      $_GET['description'] = "Partial Description"
+    ];
+  };
+  if (isset($_GET['code'])) {
+    if ($_GET['code'] == "") [
+      $_GET['code'] = "Select Sort Code"
+    ];
+  }  
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +85,14 @@
                             value="'. $row['name'] .'"
                             checked
                             hidden>
-                          <input type"checkbox"
+                            <input type"checkbox"
                             name="code"
                             value="Select Sort Code"
+                            checked
+                            hidden>
+                          <input type"checkbox"
+                            name="description"
+                            value="Partial Description"
                             checked
                             hidden>
                           <input type="submit" id="'. $row["ID"] .'" value="'. $row["name"] .'">
@@ -86,15 +101,16 @@
                     </tr>';
             }
             echo "</tbody>
-                </table>";        
+                </table>";
           ?>
       </div>
 
       <!-- Options Div for filter inputs -->
       <div class="content-container" id="options">
+        <!-- Filter -->
         <form action="user-page.php" method="get">
 
-          <?php 
+          <?php
             if (isset($_GET['job'])){
               echo '
               <input type="checkbox"
@@ -102,10 +118,6 @@
                 value="'. $_GET["job"] .'"
                 checked
                 hidden>
-              ';
-            }
-            if (isset($_GET['job'])) {
-              echo '
               <input type="checkbox"
                 name="job_name"
                 value="'. $_GET["job_name"] .'"
@@ -123,7 +135,22 @@
               ';
             }
 
+            if (isset($_GET['description']) && is_null($_GET['description'])) {
+              echo '
+              Description: <input type="text" onfocus="this.select()" name="description" placeholder="Partial Description"><br>
+              ';
+            } elseif (isset($_GET['description']) and !is_null($_GET['description'])) {
+              echo '
+              Description: <input type="text" onfocus="this.select()" name="description" placeholder="'.$_GET['description'].'"><br>
+              ';
+            } else {
+              echo '
+              Description: <input type="text" onfocus="this.select()" name="description" placeholder="Partial Description"><br>
+              ';
+            }
+
             ?>
+          <input type="submit" value="Filter">
         </form>
       </div>
     </div>
@@ -135,7 +162,7 @@
             $job = $_GET['job'];
             $job_name = $_GET['job_name'];
 
-            $result = get_data_table($job, $con, $_GET['code']);
+            $result = get_data_table($job, $con, $_GET['code'], $_GET['description']);
 
             // table header for data area
             echo "
