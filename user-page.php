@@ -16,7 +16,7 @@
     if ($_GET['code'] == "") [
       $_GET['code'] = "Select Sort Code"
     ];
-  }  
+  }
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +72,7 @@
             while ($row = mysqli_fetch_array($result))
             {
               echo '<tr id="'. $row["ID"] .'">
-                      <td><a href="job-page.php?job='.$row["ID"].'">'. $row["ID"] . '</a></td>
+                      <td><a href="job-page.php?job='.$row["ID"].'&report=Release+Tracker">'. $row["ID"] . '</a></td>
                       <td>
                         <form action="user-page.php" method="get">
                           <input type="checkbox"
@@ -150,7 +150,7 @@
             }
 
             ?>
-          <input type="submit" value="Filter">
+          <input type="submit" value="Filter" id="submit">
         </form>
       </div>
     </div>
@@ -186,10 +186,24 @@
                 <tr>
                   <td class='item-name       monospace'>".$row['name']."</td>
                   <td class='budget-quantity monospace'>".number_format($row['budqty'])."</td>
-                  <td class='budget-cost     monospace'>$".number_format($row['budcost'],2) ."/". $row['budunit']."</td>
-                  <td class='po-quantity     monospace'>".number_format($row['poqty'])."</td>
-                  <td class='po-cost         monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>"
-              ;
+                  <td class='budget-cost     monospace'>$".number_format($row['budcost'],2) ."/". $row['budunit']."</td>";
+
+              if ($row['poqty'] == 0) {
+                echo "
+                  <td class='po-quantity     monospace'></td>";
+              } else {
+                echo "
+                  <td class='po-quantity     monospace'>".number_format($row['poqty'])."</td>";
+              }
+
+              if ($row['pocost'] == 0) {
+                echo "
+                <td class='po-cost           monospace'></td>";
+              } else {
+                echo "
+                <td class='po-cost           monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>";
+              }
+
               // color positive variance as normal
               if ($row['variance']>0){
                 echo "
@@ -201,6 +215,10 @@
                 echo "
                   <td class='variance        monospace' style='color:red'>".number_format($row['variance'])."</td>
                 </tr>";
+              } else {
+                echo "
+                <td class='variance          monospace' style='color:red'></td>
+              </tr>";
               }
             }
             // close table

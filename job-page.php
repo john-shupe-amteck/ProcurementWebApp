@@ -1,6 +1,6 @@
 <?php
   include('php/config.php');
-  
+
   $job = $_GET['job'];
 
   if (is_null($_SESSION['user_id'])) [
@@ -28,6 +28,7 @@
     ?>
   <!-- link to amteck logo for tab -->
   <link rel="icon" href="img/amtecklogo.PNG">
+
   <!-- link for googl fonts TODO: move into the main .css -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
@@ -51,47 +52,65 @@
         <tr id="Release Tracker">
           <td class="report-button">
             <form action="job-page.php" method="get">
-              <input type="checkbox" name="job" value="<?php echo $job ?>" checked hidden>
-              <input type="submit" name="report" value="Release Tracker">
+              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+              <input type="submit"   name="report" value="Release Tracker">
             </form>
           </td>
         </tr>
         <tr id="Budgeted Amounts">
           <td class="report-button">
             <form action="job-page.php" method="get">
-              <input type="checkbox" name="job" value="<?php echo $job ?>" checked hidden>
-              <input type="submit" name="report" value="Budgeted Amounts">
+              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+              <input type="submit"   name="report" value="Budgeted Amounts">
+            </form>
+          </td>
+        </tr>
+        <tr id="Purchased Amounts">
+          <td class="report-button">
+            <form action="job-page.php" method="get">
+              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+              <input type="submit"   name="report" value="Purchased Amounts">
             </form>
           </td>
         </tr>
       </table>
-
     </div>
 
-    <div class="content-container" id="report-display">
-      <?php 
-      switch($_GET['report']) {
-        case "Release Tracker" :
-          include 'php/job-page/release-tracker-query.php';            
-        break;
-        
-        case "Budgeted Amounts" :
-          include 'php/job-page/budgeted-amounts-query.php';
-        break;
-      }
-      ?>
+    <div class="main-display">
+    <!-- TODO(John): Fix column sizing and add padding to push away from scroll bar -->
+      <div class="content-container" id="report-display">
+          <?php
+          switch($_GET['report']) {
+            case "Release Tracker" :
+              include('php/job-page/release-tracker-query.php');
+            break;
+
+            case "Budgeted Amounts" :
+              include('php/job-page/budgeted-amounts-query.php');
+            break;
+
+            case "Purchased Amounts" :
+              include('php/job-page/purchased-amounts-query.php');
+            break;
+          }
+          ?>
+      </div>
+      <div class="content-container" id="filter-bar">
+
+      </div>
     </div>
+
   </main>
 
 
 
 
 
-<footer class="bottom-nav">
-  <p>Copyright 2020</p>
-</footer>
-<script src="app.js"></script>
-<?php
+  <footer class="bottom-nav">
+    <p>Copyright 2020</p>
+  </footer>
+  <script src="app.js"></script>
+  <?php
   echo '<script>document.getElementById("'.$_GET['report'].'").style.backgroundColor = "gray"</script>';
   ?>
 </body>

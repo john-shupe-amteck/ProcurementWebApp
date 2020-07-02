@@ -76,17 +76,27 @@ main {
   margin:.5%;
   display: block;
 }
+.main-display {
+  height: 99%;
+  width: 84%;
+  float: left;
+}
 
 #report-selection {
   width:  14%;
-  height: 99%;
+  height: 99.5%;
   float: left;
 }
 #report-display {
-  width:  84%;
-  height: 99%;
+  width: 100%;
+  height: calc(98.5% - 50px);
   float: left;
   overflow-y: auto;
+}
+#filter-bar {
+  width: 100%;
+  height: 50px;
+  float: left;
 }
 
 table {

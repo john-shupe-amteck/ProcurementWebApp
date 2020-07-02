@@ -39,7 +39,7 @@ function get_data_table($jobid, $connection1, $code, $description) {
     mysqli_query($connection1, $query);
 
     // Pull procurementreport view
-    $query = "SELECT * FROM procurementreport";
+    $query = "SELECT * FROM procurementreport order by name";
 
 
 
@@ -77,7 +77,7 @@ function get_data_table($jobid, $connection1, $code, $description) {
     mysqli_query($connection1, $query);
 
     // Pull procurementreport view
-    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%'";
+    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%' order by name";
 
 
   // Query where code = TRUE and description = TRUE
@@ -115,7 +115,7 @@ function get_data_table($jobid, $connection1, $code, $description) {
     mysqli_query($connection1, $query);
 
     // Pull procurementreport view
-    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%'";
+    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%' order by name";
 
 
   // Query where code = FALSE and description = FALSE

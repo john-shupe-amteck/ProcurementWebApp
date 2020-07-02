@@ -99,6 +99,20 @@ main {
   height: 50%;
   float: left;
 }
+#options form {
+  text-align: right;
+}
+#options form input {
+  width: 60%;
+}
+#options form #submit {
+  width: 30%;
+}
+#options form #submit:hover {
+  
+  background-color: #383D3B80;
+  color: #EEE5E9;
+}
 
 
 #data {
@@ -108,7 +122,6 @@ main {
   overflow-y: auto;
 }
 
-/* TABLE STYLING */
 table {
   width: 100%;
   background-color: #EEE5E980;
@@ -177,7 +190,7 @@ td.variance{
 
 /* rules for differing screen sizes */
 @media screen and (max-width: 1150px) {
-  div#data {
+  #data {
     width: calc(98% - 205px);
   }
 }
