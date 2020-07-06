@@ -16,7 +16,7 @@
                   <a href="#" class="dropbtn">Admin</a>
                   <div class="dropdown-content">
                     <a href="#">Add User</a>
-                    <a href="#">Link 2</a>
+                    <a href="permissions.php">Permissions</a>
                     <a href="#">Link 3</a>
                   </div>
                 </div>';

@@ -46,33 +46,37 @@
   <main class="main-area">
     <div class="content-container" id="report-selection">
       <table>
-        <tr>
-          <th><?php echo $_GET['job']?></th>
-        </tr>
-        <tr id="Release Tracker">
-          <td class="report-button">
-            <form action="job-page.php" method="get">
-              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-              <input type="submit"   name="report" value="Release Tracker">
-            </form>
-          </td>
-        </tr>
-        <tr id="Budgeted Amounts">
-          <td class="report-button">
-            <form action="job-page.php" method="get">
-              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-              <input type="submit"   name="report" value="Budgeted Amounts">
-            </form>
-          </td>
-        </tr>
-        <tr id="Purchased Amounts">
-          <td class="report-button">
-            <form action="job-page.php" method="get">
-              <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-              <input type="submit"   name="report" value="Purchased Amounts">
-            </form>
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th><?php echo $_GET['job']?></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="Release Tracker">
+            <td class="report-button">
+              <form action="job-page.php" method="get">
+                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+                <input type="submit"   name="report" value="Release Tracker">
+              </form>
+            </td>
+          </tr>
+          <tr id="Budgeted Amounts">
+            <td class="report-button">
+              <form action="job-page.php" method="get">
+                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+                <input type="submit"   name="report" value="Budgeted Amounts">
+              </form>
+            </td>
+          </tr>
+          <tr id="Purchased Amounts">
+            <td class="report-button">
+              <form action="job-page.php" method="get">
+                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+                <input type="submit"   name="report" value="Purchased Amounts">
+              </form>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -95,7 +99,38 @@
           }
           ?>
       </div>
+
+
       <div class="content-container" id="filter-bar">
+      <form action="job-page.php" method="GET" id="filter-bar-form">
+        <?php        
+          echo '
+          <input type="checkbox"
+            name="job"
+            value="'. $_GET["job"] .'"
+            checked
+            hidden>';
+          echo '
+            <input type="checkbox"
+              name="report"
+              value="'. $_GET["report"] .'"
+              checked
+              hidden>';
+          
+          if (isset($_GET['code'])) {
+            echo 'Code:<input type="text" name="code" placeholder="'.$_GET['code'].'"> ';
+          } else {
+            echo 'Code:<input type="text" name="code"> ';
+          }
+
+          if (isset($_GET['description'])) {
+            echo 'Description:<input type="text" name="description" placeholder="'.$_GET['description'].'"> ';
+          } else {
+            echo 'Description:<input type="text" name="description"> ';
+          }
+        ?>
+        <input type="submit" value="Filter" id="submit">
+      </form>
 
       </div>
     </div>
