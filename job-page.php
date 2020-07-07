@@ -52,14 +52,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr id="Release Tracker">
+          <!-- <tr id="Release Tracker">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
                 <input type="submit"   name="report" value="Release Tracker">
               </form>
             </td>
-          </tr>
+          </tr> -->
           <tr id="Budgeted Amounts">
             <td class="report-button">
               <form action="job-page.php" method="get">
@@ -100,35 +100,40 @@
           ?>
       </div>
 
-
+      <!-- Filter Inputs Underneath Data Container -->
       <div class="content-container" id="filter-bar">
       <form action="job-page.php" method="GET" id="filter-bar-form">
-        <?php        
+        <?php
+          // Hidden input for job#
           echo '
           <input type="checkbox"
             name="job"
             value="'. $_GET["job"] .'"
             checked
             hidden>';
+          // Hidden input for report currently being displayed
           echo '
             <input type="checkbox"
               name="report"
               value="'. $_GET["report"] .'"
               checked
               hidden>';
-          
+
+          // Sort box for item code, if set -> make placeholder appear | else -> leave empty
           if (isset($_GET['code'])) {
             echo 'Code:<input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="'.$_GET['code'].'"> ';
           } else {
             echo 'Code:<input type="text" name="code"> ';
           }
 
+          // Sort box for item description, if set -> make placeholder appear | else -> leave empty
           if (isset($_GET['description'])) {
             echo 'Description:<input type="text" name="description" placeholder="'.$_GET['description'].'"> ';
           } else {
             echo 'Description:<input type="text" name="description"> ';
           }
 
+          // Sort box for item times bought, if set -> make placeholder appear | else -> leave empty
           if (isset($_GET['times'])) {
             echo 'Times Purchased:<input type="text" name="times" placeholder="'.$_GET['times'].'"> ';
           } else {

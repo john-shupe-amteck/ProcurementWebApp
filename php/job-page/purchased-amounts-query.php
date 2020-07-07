@@ -1,5 +1,8 @@
 <?php
 
+// Changing the purchased view to show appropriate data for job
+
+// Setting the SELECT statement
 $select = "CREATE or REPLACE VIEW  purchased as
   SELECT `procurement-web-app`.`purchase-details`.`itemID`         AS `itemID`,
     sum(`procurement-web-app`.`purchase-details`.`quantity`)       AS `quantity`,
@@ -7,10 +10,12 @@ $select = "CREATE or REPLACE VIEW  purchased as
     avg(`procurement-web-app`.`purchase-details`.`unit-cost`)      AS `cost`,
     count(`procurement-web-app`.`purchase-details`.`itemID`)       AS `times_purchased`";
 
+// Setting the FROM statement
 $from = "
   from
     `procurement-web-app`.`purchase-details`";
 
+// Setting the WHERE statement, including filter if it has been set
 if (isset($_GET['code']) && $_GET['code'] != "") {
   $where = "
   where
@@ -70,8 +75,8 @@ echo "
   <table>
     <thead>
       <tr>
-        <th>                        Description</th>
-        <th class='quantity'>       Quantity   </th>
+        <th>                        Description     </th>
+        <th class='quantity'>       Quantity        </th>
         <th class='times-purchased'>Times Purchased </th>
       </tr>
     </thead>

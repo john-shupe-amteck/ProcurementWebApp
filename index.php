@@ -72,7 +72,7 @@
             <h2>Login</h2>
           </div>
           <div class="form-element">
-            <input type="text" name="username" placeholder="username"/>
+            <input type="text" autofocus="autofocus" onfocus="this.select()" name="username" placeholder="username"/>
           </div>
           <div class="form-element">
             <input type="password" id="password" name="password" placeholder="password">

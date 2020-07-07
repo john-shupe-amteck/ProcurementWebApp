@@ -45,7 +45,7 @@ colors {
 
 #data {
   width: 76%;
-  height: 98%;
+  height: 97.5%;
   float: right;
   overflow-y: auto;
 }
@@ -85,9 +85,9 @@ td.variance{
 
 
 /* rules for differing screen sizes */
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1284px) {
   #data {
-    width: calc(98% - 205px);
+    width: calc(99% - 250px);
   }
 }
 
