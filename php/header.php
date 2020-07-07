@@ -23,7 +23,7 @@
         }
       ?>
 
-    <a class="link" id="news" href="news.php">News</a>
+    <!-- <a class="link" id="news" href="news.php">News</a>
     <a class="link" id="contact" href="contact.php">Contact</a>
-    <a class="link" id="about" href="about.php">About</a>
+    <a class="link" id="about" href="about.php">About</a> -->
   </header>
