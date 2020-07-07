@@ -118,7 +118,7 @@
               hidden>';
           
           if (isset($_GET['code'])) {
-            echo 'Code:<input type="text" name="code" placeholder="'.$_GET['code'].'"> ';
+            echo 'Code:<input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="'.$_GET['code'].'"> ';
           } else {
             echo 'Code:<input type="text" name="code"> ';
           }
@@ -127,6 +127,12 @@
             echo 'Description:<input type="text" name="description" placeholder="'.$_GET['description'].'"> ';
           } else {
             echo 'Description:<input type="text" name="description"> ';
+          }
+
+          if (isset($_GET['times'])) {
+            echo 'Times Purchased:<input type="text" name="times" placeholder="'.$_GET['times'].'"> ';
+          } else {
+            echo 'Times Purchased:<input type="text" name="times"> ';
           }
         ?>
         <input type="submit" value="Filter" id="submit">

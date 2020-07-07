@@ -37,6 +37,10 @@ colors {
 
 .quantity {
   width: 50px;
+  padding-right: 25px;
+}
+.times-purchased {
+  width: 50px;
   padding-right: 800px;
 }
 

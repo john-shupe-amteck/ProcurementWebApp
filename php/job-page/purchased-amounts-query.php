@@ -1,10 +1,11 @@
 <?php
 
 $select = "CREATE or REPLACE VIEW  purchased as
-  SELECT `procurement-web-app`.`purchase-details`.`itemID` AS `itemID`,
+  SELECT `procurement-web-app`.`purchase-details`.`itemID`         AS `itemID`,
     sum(`procurement-web-app`.`purchase-details`.`quantity`)       AS `quantity`,
     max(`procurement-web-app`.`purchase-details`.`cost-unitID`)    AS `unit`,
-    avg(`procurement-web-app`.`purchase-details`.`unit-cost`)      AS `cost`";
+    avg(`procurement-web-app`.`purchase-details`.`unit-cost`)      AS `cost`,
+    count(`procurement-web-app`.`purchase-details`.`itemID`)       AS `times_purchased`";
 
 $from = "
   from
@@ -36,7 +37,8 @@ mysqli_query($con, $query);
 
 $select = "SELECT
     items.description as description,
-    purchased.quantity as quantity";
+    purchased.quantity as quantity,
+    purchased.times_purchased as times_purchased";
 
 $from = "
   FROM
@@ -55,6 +57,9 @@ if (isset($_GET['description']) && $_GET['description'] != "") {
   ;
 }
 
+if (isset($_GET['times']) && $_GET['times'] != "") {
+  $where = $where." and times_purchased > ".$_GET['times'];
+}
 
 $query = $select.$from.$where;
 
@@ -65,8 +70,9 @@ echo "
   <table>
     <thead>
       <tr>
-        <th>                 Description</th>
-        <th class='quantity'>Quantity   </th>
+        <th>                        Description</th>
+        <th class='quantity'>       Quantity   </th>
+        <th class='times-purchased'>Times Purchased </th>
       </tr>
     </thead>
     <tbody>";
@@ -74,8 +80,9 @@ echo "
 while ($row = mysqli_fetch_array($result)) {
 echo '
       <tr>
-      <td class="         monospace">'.                          $row["description"]                  .'</td>
-      <td class="quantity monospace" style="text-align:right">'. number_format($row["quantity"])      .'</td>
+      <td class="                monospace">'.                          $row["description"]                   .'</td>
+      <td class="quantity        monospace" style="text-align:right">'. number_format($row["quantity"])       .'</td>
+      <td class="times-purchased monospace" style="text-align:right">'. number_format($row["times_purchased"]).'</td>
       </tr>'
 ;
 }
