@@ -84,10 +84,6 @@
       <div class="content-container" id="report-display">
           <?php
           switch($_GET['report']) {
-            case "Release Tracker" :
-              include('php/job-page/release-tracker-query.php');
-            break;
-
             case "Budgeted Amounts" :
               include('php/job-page/budgeted-amounts-query.php');
             break;
