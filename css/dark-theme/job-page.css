@@ -55,3 +55,41 @@ colors {
 #submit {
   float: right;
 }
+
+.budgeted-amount-cost {
+  width: 50px;
+  padding-right: 800px;
+}
+.budgeted-amount-quantity {
+  width: 50px;
+  padding-right: 25px;
+}
+
+.item-button {
+  border: none;
+  width: 100%;
+  padding: inherit;
+  padding-left: 5px;
+  text-align: left;
+  margin: inherit;  
+  background-color: transparent;
+  font-family: inherit;
+  font-size: medium;
+}
+
+.main-info:nth-child(4n-3) {  
+  background-color: #EEE5E970;
+}
+
+.main-info:hover {
+  background-color: #383D3B80;
+  color: #EEE5E9;
+}
+.po-table,
+.po {
+  width: 80%;
+  margin-left: 20%;
+}
+.po-table {
+  border-left: #383D3B 2px solid;
+}

@@ -1,5 +1,8 @@
-function activeButton(jobnumber) {
-  var button = document.getElementById(jobnumber);
-  button.style.backgroundColor = "pink";
+function toggle(id) {
+  var x = document.getElementById(id);
+  if (x.style.visibility === "collapse") {
+    x.style.visibility = "visible";
+  }  else {
+    x.style.visibility = "collapse";
+  }
 }
-activeButton('C19KY01007');

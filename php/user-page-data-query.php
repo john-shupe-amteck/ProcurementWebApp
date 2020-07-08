@@ -1,3 +1,4 @@
+<!-- TODO: condense function data into callable with changing query instead of if cases -->
 <?php
 function get_data_table($jobid, $connection1, $code, $description) {
 

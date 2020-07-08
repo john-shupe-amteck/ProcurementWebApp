@@ -1,6 +1,7 @@
 <?php
 $query = "SELECT
-    A.description,sum(quantity) as qty,
+    A.description,
+    sum(quantity) as qty,
     `unit-cost` 
   FROM `budget-details` A
   WHERE
@@ -10,7 +11,7 @@ $query = "SELECT
       WHERE B.jobID='".$job."')
   GROUP BY
     itemID
-  ORDER BY qty DESC
+  ORDER BY A.description ASC
   Limit 50"
 ;
 
@@ -21,8 +22,8 @@ echo "
   <thead>
     <tr>
       <th>Description</th>
-      <th>Quantity   </th>
-      <th>Cost       </th>
+      <th class='budgeted-amount-quantity'>Quantity   </th>
+      <th class='budgeted-amount-cost'    >Cost       </th>
     </tr>
   </thead>
   <tbody>";
@@ -31,8 +32,8 @@ while ($row = mysqli_fetch_array($result))
 echo '
     <tr>
     <td class="monospace">'.                          $row["description"]             .'</td>
-    <td class="monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
-    <td class="monospace" style="text-align:right">'. number_format($row["unit-cost"]).'</td>
+    <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
+    <td class="budgeted-amount-cost monospace" style="text-align:right">'. number_format($row["unit-cost"]).'</td>
     </tr>';
 }
 echo "

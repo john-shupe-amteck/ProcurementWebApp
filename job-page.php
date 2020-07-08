@@ -81,7 +81,6 @@
     </div>
 
     <div class="main-display">
-    <!-- TODO(John): Fix column sizing and add padding to push away from scroll bar -->
       <div class="content-container" id="report-display">
           <?php
           switch($_GET['report']) {
@@ -155,7 +154,7 @@
   <footer class="bottom-nav">
     <p>Copyright 2020</p>
   </footer>
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
   <?php
   echo '<script>document.getElementById("'.$_GET['report'].'").style.backgroundColor = "gray"</script>';
   ?>

@@ -30,8 +30,7 @@
       }
     }
   }
-?>
-
+?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,6 +92,6 @@
     <footer class="bottom-nav">
       <p>Copyright 2020</p>
     </footer>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
