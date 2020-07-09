@@ -78,6 +78,12 @@ td.variance{
   background-color: #383D3B;
   color: #EEE5E9;
 }
+#jobs a {
+  color: #383D3B;
+}
+#jobs a:hover {
+  color: inherit;
+}
 
 #options input{
   width: 50%;

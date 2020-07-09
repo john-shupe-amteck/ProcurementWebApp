@@ -1,3 +1,5 @@
+<div id="main-data">
+
 <?php
 $query = "SELECT
     A.description,
@@ -45,3 +47,11 @@ echo '
 echo "
   </tbody>
 </table>";
+?>
+
+</div>
+
+<div id="totals-row">
+  <table></table>
+
+</div>

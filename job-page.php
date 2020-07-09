@@ -80,23 +80,22 @@
       </table>
     </div>
 
-    <div class="main-display">
-      <div class="content-container" id="report-display">
-          <?php
-          switch($_GET['report']) {
-            case "Budgeted Amounts" :
-              include('php/job-page/budgeted-amounts-query.php');
-            break;
+    <div class="main-display content-container" id="report-display">
+      <?php
+      switch($_GET['report']) {
+        case "Budgeted Amounts" :
+          include('php/job-page/budgeted-amounts-query.php');
+        break;
 
-            case "Purchased Amounts" :
-              include('php/job-page/purchased-amounts-query.php');
-            break;
-          }
-          ?>
-      </div>
+        case "Purchased Amounts" :
+          include('php/job-page/purchased-amounts-query.php');
+        break;
+      }
+      ?>
+    </div>
 
-      <!-- Filter Inputs Underneath Data Container -->
-      <div class="content-container" id="filter-bar">
+    <!-- Filter Inputs Underneath Data Container -->
+    <div class="content-container" id="filter-bar">
       <form action="job-page.php" method="GET" id="filter-bar-form">
         <?php
           // Hidden input for job#
@@ -137,8 +136,6 @@
         ?>
         <input type="submit" value="Filter" id="submit">
       </form>
-
-      </div>
     </div>
 
   </main>

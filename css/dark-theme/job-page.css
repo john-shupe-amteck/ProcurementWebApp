@@ -19,13 +19,13 @@ colors {
   float: left;
 }
 #report-display {
-  width: 100%;
-  height: calc(98.5% - 50px);
+  width: 84%;
+  height: calc(97% - 50px);
   float: left;
   overflow-y: auto;
 }
 #filter-bar {
-  width: 100%;
+  width: 84%;
   height: 50px;
   float: left;
 }
@@ -46,7 +46,6 @@ colors {
 
 #filter-bar-form {
   float: left;
-  padding-left: 10px;
   width: 100%;
 }
 #filter-bar-form input {
@@ -96,4 +95,13 @@ colors {
 }
 .po-table {
   border-left: #383D3B 2px solid;
+}
+
+#main-data {
+  height: 95%;
+  overflow-y: scroll;
+}
+#totals-row {
+  height: 5%;
+  vertical-align: bottom;
 }

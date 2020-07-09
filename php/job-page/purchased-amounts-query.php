@@ -1,5 +1,5 @@
+<div id="main-data">
 <?php
-include('purchase-orders.php');
 
 // Changing the purchased view to show appropriate data for job
 
@@ -148,3 +148,11 @@ echo "
     </tbody>
   </table>"
 ;
+?>
+
+</div>
+
+<div id="totals-row">
+
+
+</div>
