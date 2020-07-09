@@ -57,12 +57,16 @@ colors {
 }
 
 .budgeted-amount-cost {
-  width: 50px;
-  padding-right: 800px;
+  width: 65px;
+  padding-right: 25px;
 }
 .budgeted-amount-quantity {
-  width: 50px;
+  width: 65px;
   padding-right: 25px;
+}
+.budgeted-amount-total {
+  width: 65px;
+  padding-right: 800px;
 }
 
 .item-button {
