@@ -1,57 +1,78 @@
-<div id="main-data">
-
 <?php
-$query = "SELECT
-    A.description,
-    sum(quantity) as qty,
-    avg(`unit-cost`) as 'unit-cost',
-    `cost-unitID`,
-    `cost-units`.`conversion`,
-    sum(quantity) * avg(`unit-cost`) * `cost-units`.`conversion` as total
-  FROM `budget-details` A
-  LEFT JOIN `cost-units` on `cost-units`.ID = A.`cost-unitID`
-  WHERE
-    A.budgetID in (
-      SELECT B.ID 
-      FROM budgets B
-      WHERE B.jobID='".$job."')
-  GROUP BY
-    itemID
-  ORDER BY A.description ASC
-  Limit 50"
-;
+  if (isset($_GET['code'])) {
+    $code = $_GET['code'];
+  }
+  if (isset($_GET['description'])) {
+    $description = $_GET['description'];
+  }
 
-$result = mysqli_query($con, $query);
+  $select = "SELECT
+    A.description                                                AS description,
+    sum(quantity)                                                AS qty,
+    avg(`unit-cost`)                                             AS 'unit-cost',
+    `cost-unitID`                                                AS 'cost-unitID',
+    `cost-units`.`conversion`                                    AS conversion,
+    sum(quantity) * avg(`unit-cost`) * `cost-units`.`conversion` AS total
+    ";
+  $from = "FROM `budget-details` A ";
+  $left_join = "LEFT JOIN `cost-units` on `cost-units`.ID = A.`cost-unitID`";
+  $where = "
+    WHERE
+      A.budgetID IN (
+        SELECT 
+          B.ID 
+        FROM 
+          budgets B
+        WHERE 
+          B.jobID='".$job."'
+    )"
+  ;  
+  $group_by = "GROUP BY itemID ";
+  $order_by = "ORDER BY itemID ASC ";
+  $limit = "LIMIT 50";
 
-echo "
-<table>
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th class='budgeted-amount-quantity'>Quantity   </th>
-      <th class='budgeted-amount-cost'    >Cost       </th>
-      <th class='budgeted-amount-total'   >Total      </th>
-    </tr>
-  </thead>
-  <tbody>";
-while ($row = mysqli_fetch_array($result))
-{
-echo '
-    <tr>
-    <td class="monospace">'.                          $row["description"]             .'</td>
-    <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
-    <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
-    <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
-    </tr>';
-}
-echo "
-  </tbody>
-</table>";
+  if (isset($code) && $code != "") {
+    $where = $where." AND A.`sort-codeID` = ".$code." ";
+    $limit = "";
+  }
+
+  if (isset($description) && $description != "") {
+    $where = $where." AND description LIKE '%".$description."%' ";
+    $limit = "";
+  }
+
+  $query = $select.$from.$left_join.$where.$group_by.$order_by.$limit;
+  $result = mysqli_query($con, $query);
 ?>
 
+<div id="main-data">
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th class='budgeted-amount-quantity'>Quantity   </th>
+        <th class='budgeted-amount-cost'    >Cost       </th>
+        <th class='budgeted-amount-total'   >Total      </th>
+      </tr>
+    </thead>
+    <tbody>
+  
+    <?php
+      while ($row = mysqli_fetch_array($result))
+      {
+      echo '
+        <tr>
+        <td class="monospace">'.                          $row["description"]             .'</td>
+        <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
+        <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
+        <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
+        </tr>';
+      }
+    ?>
+    </tbody>
+  </table>
 </div>
-
 <div id="totals-row">
-  <table></table>
-
+  <table>
+  </table>
 </div>
