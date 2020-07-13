@@ -13,18 +13,18 @@ colors {
   display: inline-block;
   min-width: 205px;
   vertical-align: top;
-  padding-top: .5%;
+  margin: 0.5%;
 }
 #jobs {
   width: 99%;
-  height: 50%;
+  height: 49.5%;
   float: left;
   overflow-y: auto;
   overflow-x: hidden;
 }
 #options {
   width: 99%;
-  height: 50%;
+  height: 49.5%;
   float: left;
 }
 #options form {
@@ -45,9 +45,10 @@ colors {
 
 #data {
   width: 76%;
-  height: 97.5%;
+  height: 98%;
   float: right;
   overflow-y: auto;
+  vertical-align: top;
 }
 
 .budget-cost,

@@ -5,6 +5,13 @@
   if (isset($_GET['job_name'])) {
     $job_name = $_GET['job_name'];
   }
+  if (isset($_GET['code'])) {
+    $code = $_GET['code'];
+  }
+  if (isset($_GET['description'])) {
+    $description = $_GET['description'];
+  }
+  
   
   // Budgeted Query
   $select = "CREATE OR REPLACE VIEW budgeted AS
