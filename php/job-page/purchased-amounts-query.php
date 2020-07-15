@@ -132,7 +132,7 @@
             while ($rows = mysqli_fetch_array($result2)) {
               echo '
                       <tr>
-                        <td class="po monospace">'.$rows['quantity'].'</td>
+                        <td class="po monospace" style="text-align:right; padding-right:23px">'.number_format($rows['quantity']).'</td>
                       </tr>'
               ;
             }

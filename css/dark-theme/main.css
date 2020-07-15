@@ -96,7 +96,10 @@ main h2 {
   float: left;
 }
 main input {
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   border-radius: 5px;
   border: #EEE5E9 solid 1px;
   width: 95%;

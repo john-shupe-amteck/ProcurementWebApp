@@ -6,110 +6,95 @@ colors {
   color: #52DEE5;
 }
 
-main {
-  margin: 2%;
-  max-width: none;
-  max-height: fit-content;
-  height: auto;
-  padding: 10px;
-  min-height: 500px;
+/* Layout Formatting */
+#options-panel {
+  width: 21%;
+  height: 98%;
+  display: inline-block;
+  min-width: 205px;
+  vertical-align: top;
+  margin: 0.5%;
 }
-
-.dropbtn {
-  background-color: rgba(0,0,0,.2);
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  min-width: 100px;
-}
-
-.dropdown {
+#jobs {
+  width: 99%;
+  height: 49.5%;
   float: left;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#options {
+  width: 99%;
+  height: 49.5%;
+  float: left;
+}
+#options form {
+  text-align: right;
+}
+#options form input {
+  width: 60%;
+}
+#options form #submit {
+  width: 30%;
+}
+#options form #submit:hover {
+  
+  background-color: #383D3B80;
+  color: #EEE5E9;
 }
 
-.dropdown .dropbtn {
-  font-size: 17px;
+
+#data {
+  width: 76%;
+  height: 98%;
+  float: right;
+  overflow-y: auto;
+  vertical-align: top;
+}
+
+.budget-cost,
+.po-cost,
+.variance {
+  width: 100px;
+}
+.budget-quantity,
+.po-quantity{
+  width: 200px;
+}
+td.budget-quantity,
+td.budget-cost,
+td.po-quantity,
+td.po-cost,
+td.variance{
+  text-align: right;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* table line styling */
+#jobs input {
   border: none;
-  outline: none;
-  color: #EEE5E9;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #7C7C7C80;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  top: 50px;
-}
-
-.dropdown-content a {
-  float: none;
-  color: #EEE5E9;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
   text-align: left;
 }
-
-.dropdown-content a:hover {
-  background-color: #ddd;
+#jobs input:hover {
+  background-color: #383D3B;
+  color: #EEE5E9;
+}
+#jobs a {
+  color: #383D3B;
+}
+#jobs a:hover {
+  color: inherit;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+#options input{
+  width: 50%;
 }
 
-.content-container {
-  border: #EEE5E9 5px inset;
-  border-radius: 2px;
-  min-height: 200px;
-  background-color: #EEE5E980;
+
+/* rules for differing screen sizes */
+@media screen and (max-width: 1284px) {
+  #data {
+    width: calc(99% - 250px);
+  }
 }
 
-table {
-  background-color: #EEE5E980;
-  color: black;
-  box-shadow: inset;
-  overflow: hidden;
-  text-align: left;
-  border-collapse: collapse;
-  width: 100%;
-  height: 100%;
-}
-
-td {
-  padding: 1px;
-}
-tr {
-  height: 25px;
-}
-tr:nth-child(even) {background-color: #EEE5E970;}
-tr:hover {
-  background-color: #EEE5E999;
-}
-
-th, td {
-  border-bottom: 1px solid #383D3B;
-}
-
-.jobs {
-  width: 20%;
-  height: auto;
-}
-
-a.job-link {
-  color: black;
-}
-a.job-link:hover {
-  color: black;
-  background-color: none;
-}
