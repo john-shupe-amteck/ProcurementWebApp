@@ -14,7 +14,7 @@
   }
 
   // variable to change the theme style
-  $_SESSION['theme'] = "light";
+  $_SESSION['theme'] = "dark";
 
   // mysqli connection for data collection
   $con = mysqli_connect("localhost", "root", "", "procurement-web-app");

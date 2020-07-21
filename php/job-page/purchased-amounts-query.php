@@ -76,76 +76,73 @@
     }
 
     $query = $select.$from.$where;
-
-
     $result = mysqli_query($con, $query);
+    
   ?>
-    <table>
-      <thead>
-        <tr>
-          <th>                        Description     </th>
-          <th class='quantity'>       Quantity        </th>
-          <th class='times-purchased'>Times Purchased </th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-          // Iterates through results and populates to table
-          while ($row = mysqli_fetch_array($result)) {
+  <table>
+    <thead>
+      <tr>
+        <th>                        Description     </th>
+        <th class='quantity'>       Quantity        </th>
+        <th class='times-purchased'>Times Purchased </th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+        // Iterates through results and populates to table
+        while ($row = mysqli_fetch_array($result)) {
 
-            $id = $row['itemID'];
+          $id = $row['itemID'];
 
+          echo '
+              <tr class="main-info">
+                <td class="                monospace"><button class="item-button" onclick=toggle("'.$id.'")>'.$row["description"].'</button></td>
+                <td class="quantity        monospace" style="text-align:right">'. number_format($row["quantity"])       .'</td>
+                <td class="times-purchased monospace" style="text-align:right">'. number_format($row["times_purchased"]).'</td>
+              </tr>'
+          ;
+
+          // query with specific item details
+          $query2 = 'SELECT jobID, `PO-number`, quantity, `unit-cost` FROM `purchase-details` WHERE itemID = "'.$row['itemID'].'" and jobID = "'.$_GET['job'].'" ORDER BY `PO-number`';
+          $result2 = mysqli_query($con, $query2);
+
+          // adds in the po table
+          echo '
+              <tr id='.$id.' style="visibility:collapse">
+                <td>
+                  <table class="po-table">'
+          ;
+
+          while ($rows = mysqli_fetch_array($result2)) {
             echo '
-                <tr class="main-info">
-                  <td class="                monospace"><button class="item-button" onclick=toggle("'.$id.'")>'.$row["description"].'</button></td>
-                  <td class="quantity        monospace" style="text-align:right">'. number_format($row["quantity"])       .'</td>
-                  <td class="times-purchased monospace" style="text-align:right">'. number_format($row["times_purchased"]).'</td>
-                </tr>'
-            ;
-
-            $query2 = 'SELECT jobID, `PO-number`, quantity, `unit-cost` FROM `purchase-details` WHERE itemID = "'.$row['itemID'].'" and jobID = "'.$_GET['job'].'" ORDER BY `PO-number`';
-            $result2 = mysqli_query($con, $query2);
-
-            // adds in the po table
-            echo '
-                <tr id='.$id.' style="visibility:collapse">
-                  <td>
-                    <table class="po-table">'
-            ;
-
-            while ($rows = mysqli_fetch_array($result2)) {
-              echo '
-                      <tr>
-                        <td class="po monospace">'.$rows['jobID'].'/'.$rows['PO-number'].'</td>
-                      </tr>'
-              ;
-            }
-            
-            echo '
-                    </table>
-                  </td>
-                  <td>
-                    <table>'
-            ;
-
-            $result2 = mysqli_query($con, $query2);
-            while ($rows = mysqli_fetch_array($result2)) {
-              echo '
-                      <tr>
-                        <td class="po monospace" style="text-align:right; padding-right:23px">'.number_format($rows['quantity']).'</td>
-                      </tr>'
-              ;
-            }
-            echo '
-                    </table>
-                  </td>
-                </tr>'
+                    <tr>
+                      <td class="po monospace">'.$rows['jobID'].'/'.$rows['PO-number'].'</td>
+                    </tr>'
             ;
           }
-        ?>
-      </tbody>
-    </table>
-  </div>
+          
+          echo '
+                  </table>
+                </td>
+                <td>
+                  <table>'
+          ;
 
-  <div id="totals-row">
+          $result2 = mysqli_query($con, $query2);
+          while ($rows = mysqli_fetch_array($result2)) {
+            echo '
+                    <tr>
+                      <td class="po monospace" style="text-align:right; padding-right:23px">'.number_format($rows['quantity']).'</td>
+                    </tr>'
+            ;
+          }
+          echo '
+                  </table>
+                </td>
+              </tr>'
+          ;
+        }
+      ?>
+    </tbody>
+  </table>
 </div>

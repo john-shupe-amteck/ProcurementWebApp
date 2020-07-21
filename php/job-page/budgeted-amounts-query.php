@@ -43,6 +43,8 @@
 
   $query = $select.$from.$left_join.$where.$group_by.$order_by.$limit;
   $result = mysqli_query($con, $query);
+  $query = $select.$from.$left_join.$where;
+  $result2 = mysqli_query($con, $query);
 ?>
 
 <div id="main-data">
@@ -58,15 +60,15 @@
     <tbody>
   
     <?php
-      while ($row = mysqli_fetch_array($result))
-      {
-      echo '
-        <tr>
-        <td class="monospace">'.                          $row["description"]             .'</td>
-        <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
-        <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
-        <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
-        </tr>';
+      while ($row = mysqli_fetch_array($result)) {
+        echo '
+          <tr>
+          <td class="monospace">'.                          $row["description"]             .'</td>
+          <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
+          <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
+          <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
+          </tr>'
+        ;
       }
     ?>
     </tbody>
@@ -74,5 +76,20 @@
 </div>
 <div id="totals-row">
   <table>
+    <tbody>
+      <?php
+        while ($row = mysqli_fetch_array($result2)) {
+          echo '
+            <tr>
+            <td class="monospace"></td>
+            <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
+            <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
+            <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
+            </tr>
+            '
+          ;
+        }
+      ?>
+    </tbody>
   </table>
 </div>

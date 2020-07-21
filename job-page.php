@@ -31,6 +31,7 @@
 
   <!-- link for googl fonts TODO: move into the main .css -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
   <title>Amteck Procurement</title>
 </head>

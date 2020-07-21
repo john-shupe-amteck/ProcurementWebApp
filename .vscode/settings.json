@@ -11,5 +11,6 @@
         "**/.DS_Store": true,
         "**/*.sql": true,
         "**/*.md": true
-    }
+    },
+    "python.pythonPath": "C:\\Users\\JShupe\\Python\\python.exe"
 }
