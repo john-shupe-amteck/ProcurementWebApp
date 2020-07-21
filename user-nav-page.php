@@ -58,9 +58,6 @@
     </main>
 
     
-    <footer class="bottom-nav">
-      <p>Copyright 2020</p>
-    </footer>
-    <script src="app.js"></script>
+    <?php include('php/footer.php') ?>
   </body>
 </html>

@@ -1,7 +1,6 @@
 <!-- Setup php -->
 <?php
   include('php/config.php');
-  include('php/user-page-data-query.php');
 
   // makes sure a user is logged in before navigating farther into the app
   if (is_null($_SESSION['user_id'])) [
@@ -56,5 +55,6 @@
     <div class="content-container" id="user-permissions-editor">
       <?php include 'php/permissions/user-permissions-editor.php' ?>
     </div>
+    <?php include('php/footer.php') ?>
   </main>
 </body>

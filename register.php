@@ -85,8 +85,6 @@
     </div>
     </main>
 
-    <footer class="bottom-nav">
-      <p>Copyright 2020</p>
-    </footer>
+    <?php include('php/footer.php') ?>
   </body>
 </html>

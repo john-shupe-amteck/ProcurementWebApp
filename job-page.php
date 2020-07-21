@@ -149,10 +149,7 @@
 
 
 
-  <footer class="bottom-nav">
-    <p>Copyright 2020</p>
-  </footer>
-  <script src="js/app.js"></script>
+  <?php include('php/footer.php') ?>
   <?php
   echo '<script>document.getElementById("'.$_GET['report'].'").style.backgroundColor = "gray"</script>';
   ?>

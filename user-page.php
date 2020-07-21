@@ -191,10 +191,7 @@
     </main>
 
 
-    <footer class="bottom-nav">
-      <p>Copyright 2020</p>
-    </footer>
-    <script src="app.js"></script>
+    <?php include('php/footer.php') ?>
     <!-- php to color the active job button a different color -->
     <?php
       echo '<script>document.getElementById("'.$_GET['job'].'").style.backgroundColor = "gray"</script>';
