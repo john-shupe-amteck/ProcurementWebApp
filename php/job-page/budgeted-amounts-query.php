@@ -57,7 +57,7 @@
         <th class='budgeted-amount-total'   >Total      </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="non-clickable">
   
     <?php
       while ($row = mysqli_fetch_array($result)) {
@@ -65,8 +65,8 @@
           <tr>
           <td class="monospace">'.                          $row["description"]             .'</td>
           <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
-          <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
-          <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
+          <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"], 2).'/'.$row["cost-unitID"].'</td>
+          <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"], 2).'</td>
           </tr>'
         ;
       }
@@ -82,9 +82,9 @@
           echo '
             <tr>
             <td class="monospace"></td>
-            <td class="budgeted-amount-quantity monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
-            <td class="budgeted-amount-cost monospace" style="text-align:right">$'. number_format($row["unit-cost"]).'/'.$row["cost-unitID"].'</td>
-            <td class="budgeted-amount-total monospace" style="text-align:right">'. number_format($row["total"]).'</td>
+            <td id="total-quantity" class="monospace" style="text-align:right">'. number_format($row["qty"])      .'</td>
+            <td id="total-cost" class="monospace" style="text-align:right"></td>
+            <td id="total-total" class="monospace" style="text-align:right">'. number_format($row["total"], 2).'</td>
             </tr>
             '
           ;

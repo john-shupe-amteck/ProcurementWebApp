@@ -136,7 +136,7 @@ main li {
 }
 
 .monospace {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Courier Prime', monospace;
 }
 
 .dropbtn {
@@ -224,6 +224,7 @@ tbody > tr:hover {
 th,
 td {
   padding: 1px;
+  user-select: inherit;
 }
 tbody {
   height: auto;
@@ -231,4 +232,8 @@ tbody {
 thead {
   display: table-header-group;
   text-align: center;
+}
+
+.non-clickable {
+  user-select: none;
 }
