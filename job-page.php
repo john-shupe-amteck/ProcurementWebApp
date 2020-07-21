@@ -53,15 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr id="Release Tracker">
-            <td class="report-button">
-              <form action="job-page.php" method="get">
-                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-                <input type="submit"   name="report" value="Release Tracker">
-              </form>
-            </td>
-          </tr> -->
-          <tr id="Budgeted Amounts">
+          <tr id="budgeted-amounts">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
@@ -69,11 +61,19 @@
               </form>
             </td>
           </tr>
-          <tr id="Purchased Amounts">
+          <tr id="purchased-amounts">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
                 <input type="submit"   name="report" value="Purchased Amounts">
+              </form>
+            </td>
+          </tr>
+          <tr id="rental-tracker">
+            <td class="report-button">
+              <form action="job-page.php" method="get">
+                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+                <input type="submit"   name="report" value="Rental Tracker">
               </form>
             </td>
           </tr>
@@ -90,6 +90,10 @@
 
         case "Purchased Amounts" :
           include('php/job-page/purchased-amounts-query.php');
+        break;
+
+        case "Rental Tracker" :
+          include('php/job-page/rental-tracker-query.php');
         break;
       }
       ?>
