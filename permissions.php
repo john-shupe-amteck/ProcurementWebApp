@@ -48,10 +48,6 @@
   <?php include 'php/header.php'; ?>
 
   <main>
-    <div class="content-container" id="user-selection-menu">
-      <?php include 'php/permissions/user-selection-menu.php' ?>
-    </div>
-
     <div class="content-container" id="user-permissions-editor">
       <?php include 'php/permissions/user-permissions-editor.php' ?>
     </div>
