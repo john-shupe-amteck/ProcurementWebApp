@@ -23,7 +23,7 @@ colors {
   width: 84%;
   height: calc(97% - 50px);
   float: left;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 #filter-bar {
   width: 84%;
@@ -65,7 +65,7 @@ colors {
   padding-right: 25px;
 }
 .budgeted-amount-total {
-  width: 65px;
+  width: 100px;
   padding-right: 800px;
 }
 
@@ -99,15 +99,23 @@ colors {
 }
 
 #main-data {
-  height: 95%;
+  height: 96.5%;
   overflow-y: scroll;
 }
 #totals-row {
   height: 5%;
-  vertical-align: bottom;
 }
 
 #filter-bar-form input {
   margin-top: .5%;
   margin-left: 2px;
+}
+
+#total-quantity {
+  padding-right: 122px;
+}
+
+#total-total {
+  padding-right: 817px;
+  width: 100px;
 }
