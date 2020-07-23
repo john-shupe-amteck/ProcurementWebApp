@@ -8,24 +8,24 @@ colors {
 
 /* Layout Formatting */
 #options-panel {
-  width: 21%;
-  height: 98%;
-  display: inline-block;
+  width: 22%;
+  height: 99%;
+  float: left;
   min-width: 205px;
-  vertical-align: top;
   margin: 0.5%;
 }
-#jobs {
-  width: 99%;
-  height: 49.5%;
+
+#jobs,
+#options {
+  width: 100%;
+  height: 48%;
   float: left;
+}
+
+#jobs {
   overflow-y: auto;
   overflow-x: hidden;
-}
-#options {
-  width: 99%;
-  height: 49.5%;
-  float: left;
+  margin-bottom: 6%;
 }
 #options form {
   text-align: right;
@@ -43,12 +43,19 @@ colors {
 }
 
 
-#data {
+#data-panel {
   width: 76%;
-  height: 98%;
+  height: 99%;
   float: right;
+  margin: 0.5%;
+}
+
+#data {
+  width: 99%;
+  height: 99%;
+  float: left;
   overflow-y: auto;
-  vertical-align: top;
+  overflow-x: hidden;
 }
 
 .budget-cost,
@@ -98,3 +105,6 @@ td.variance{
   }
 }
 
+.content-container {
+  margin: unset;
+}

@@ -13,6 +13,17 @@ colors {
   box-sizing: border-box;
 }
 
+main, 
+main a,
+tbody > tr:hover,
+.bottom-nav,
+.dropdown .dropbtn,
+.dropdown-content a,
+.top-nav a,
+.top-nav a.home-link {
+  color: #EEE5E9
+}
+
 html {
   height: 85%;
   overflow: hidden;
@@ -23,15 +34,9 @@ body {
   background-repeat:     no-repeat;
   background-attachment: fixed;
   background-size:       cover;
-  margin:                0px;
-  padding:               0px;
   font-family:           'Montserrat', sans-serif;
   text-align: center;
   height: 100%;
-}
-
-.temp {
-  color: red !important;
 }
 
 footer {
@@ -45,51 +50,34 @@ footer p {
   margin: 10px;
 }
 
-.top-nav, .bottom-nav{
-  background: rgba(0,0,0,.5);
-  width:        100%;
-  height:       50px;
-  overflow:     hidden;
-}
-.top-nav a{
-  text-decoration:  none;
-  float:            left;
-  color:          #EEE5E9;
-  text-align:       center;
-  padding:          14px 16px;
-  font-size:        17px;
-}
-.top-nav a:hover {
-  color:         #7C7C7C;
-  border-bottom: #52DEE5 1px solid;
-}
-.top-nav a.link {
-  float: right;
-}
-.top-nav a.home-link {
-  font-size:      24px;
-  padding:        10px 14px;
-  border-bottom:  none;
-  color:        #EEE5E9;
-}
-.top-nav a.active {
-  color: #92DCE5;
-} 
-
-.bottom-nav {
-  background-color: #000000;
-  color: #EEE5E9;
-}
-
-
 main {
   height: 100%;
   width: 96%;
   margin: 2%;
   padding: 1%;
   max-width: none;
-  color: #EEE5E9;
   background-color: rgba(0, 0, 0, 0.5);
+}
+main a {
+  text-decoration: none;
+  display: block;
+}
+main a:hover {
+  color: #52DEE5;
+}
+main button {
+  border-radius: 5px;
+  border: #EEE5E9 solid 1px;
+  width: 50%;
+  padding: 5px;
+  float: right;
+  margin: 10px;
+}
+main button:active {
+  background-color: gray;
+}
+main button:hover {
+  background-color: lightgray;
 }
 main h2 {
   margin: 10px;
@@ -105,38 +93,77 @@ main input {
   width: 95%;
   padding: 5px;
 }
-main button {
-  border-radius: 5px;
-  border: #EEE5E9 solid 1px;
-  width: 50%;
-  padding: 5px;
-  float: right;
-  margin: 10px;
-}
-main button:hover {
-  background-color: lightgray;
-}
-main button:active {
-  background-color: gray;
-}
-main a {
-  text-decoration: none;
-  color: #EEE5E9;
-  display: block;
-}
-main a:hover {
-  color: #52DEE5;
-}
-main ul {
-  margin: 5px;
-}
 main li {
   list-style: none;
   float: left;
 }
+main ul {
+  margin: 5px;
+}
 
-.monospace {
-  font-family: 'Courier Prime', monospace;
+table {
+  width: 100%;
+  background-color: #EEE5E980;
+  color: black;
+  text-align: left;
+  border-collapse: collapse;
+}
+tbody {
+  height: auto;
+}
+tbody > tr:hover {
+  background-color: #383D3B80;
+}
+td,
+th {
+  padding: 1px;
+  user-select: inherit;
+}
+thead {
+  display: table-header-group;
+  text-align: center;
+}
+tr {
+  height: 25px;
+  position: relative;
+  border-bottom: 1px solid #383D3B;
+}
+tr:nth-child(even) {
+  background-color: #EEE5E970;
+}
+
+.bottom-nav,
+.top-nav {
+  width:        100%;
+  height:       50px;
+  background: rgba(0,0,0,.5);
+  overflow:     hidden;
+}
+.top-nav a{
+  text-decoration:  none;
+  float:            left;
+  text-align:       center;
+  padding:          14px 16px;
+  font-size:        17px;
+}
+.top-nav a:hover {
+  color:         #7C7C7C;
+  border-bottom: #52DEE5 1px solid;
+}
+.top-nav a.link {
+  float: right;
+}
+.top-nav a.home-link {
+  font-size:      24px;
+  padding:        10px 14px;
+  border-bottom:  none;
+}
+.top-nav a.active {
+  color: #92DCE5;
+} 
+
+.bottom-nav {
+  background-color: #000000;
 }
 
 .dropbtn {
@@ -158,7 +185,6 @@ main li {
   font-size: 17px;
   border: none;
   outline: none;
-  color: #EEE5E9;
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
@@ -177,7 +203,6 @@ main li {
 
 .dropdown-content a {
   float: none;
-  color: #EEE5E9;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -192,48 +217,21 @@ main li {
   display: block;
 }
 
-/* General styling for containers */
 .content-container {
   border: #EEE5E9 5px inset;
   border-radius: 2px;
   background-color: #EEE5E980;
   margin:.5%;
   display: block;
-}
-
-table {
-  width: 100%;
-  background-color: #EEE5E980;
-  color: black;
-  box-shadow: inset;
-  text-align: left;
-  border-collapse: collapse;
-}
-tr {
-  height: 25px;
-  position: relative;
-  border-bottom: 1px solid #383D3B;
-}
-tr:nth-child(even) {
-  background-color: #EEE5E970;
-}
-tbody > tr:hover {
-  background-color: #383D3B80;
-  color: #EEE5E9;
-}
-th,
-td {
-  padding: 1px;
-  user-select: inherit;
-}
-tbody {
-  height: auto;
-}
-thead {
-  display: table-header-group;
-  text-align: center;
+  overflow-y: auto;
 }
 
 .non-clickable {
   user-select: none;
+}
+.monospace {
+  font-family: 'Courier Prime', monospace;
+}
+.temp {
+  color: red !important;
 }
