@@ -18,4 +18,9 @@ $(function() {
   $(".main-info").click(function (e) { 
     $(this).next().toggle(200);    
   });
+
+  $('#job-title').click(function (e) {
+    parent.location = "http://localhost/ProcurementWebApp/user-page.php";
+    return false;
+  })
 })

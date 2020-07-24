@@ -185,8 +185,9 @@
 
 
     <?php include('php/footer.php') ?>
-    <?php
-      echo '<script>document.getElementById("'.$_GET['job'].'").style.backgroundColor = "gray"</script>';
-    ?>
+    <script>
+      elem = document.getElementById("<?php echo $_GET["job"] ?>");
+      elem.style.backgroundColor = "gray";
+    </script>';
   </body>
 </html>

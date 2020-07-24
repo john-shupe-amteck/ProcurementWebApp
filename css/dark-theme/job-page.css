@@ -36,13 +36,25 @@ colors {
   color: #EEE5E9;
 }
 
+.quantity,
+.times-purchased,
+.purchase-price {
+  text-align: right;
+}
+
+.description {
+  width:500px;
+}
 .quantity {
-  width: 50px;
+  width: 100px;
   padding-right: 25px;
 }
 .times-purchased {
-  width: 50px;
-  padding-right: 800px;
+  width: 100px;
+  padding-right: 25px;
+}
+.purchase-price {
+  padding-right: 700px;
 }
 
 #filter-bar-form {
@@ -89,11 +101,6 @@ colors {
   background-color: #383D3B80;
   color: #EEE5E9;
 }
-.po-table,
-.po {
-  width: 80%;
-  margin-left: 20%;
-}
 .po-table {
   border-left: #383D3B 2px solid;
 }
@@ -118,4 +125,7 @@ colors {
 #total-total {
   padding-right: 817px;
   width: 100px;
+}
+
+.po + .quantity {
 }

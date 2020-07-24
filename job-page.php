@@ -49,11 +49,11 @@
       <table>
         <thead>
           <tr>
-            <th><?php echo $_GET['job']?></th>
+            <th id="job-title"><?php echo $_GET['job']?></th>
           </tr>
         </thead>
         <tbody>
-          <tr id="budgeted-amounts">
+          <tr id="Budgeted Amounts">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
@@ -61,7 +61,7 @@
               </form>
             </td>
           </tr>
-          <tr id="purchased-amounts">
+          <tr id="Purchased Amounts">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
@@ -69,7 +69,7 @@
               </form>
             </td>
           </tr>
-          <tr id="rental-tracker">
+          <tr id="Rental Tracker">
             <td class="report-button">
               <form action="job-page.php" method="get">
                 <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
