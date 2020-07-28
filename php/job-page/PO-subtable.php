@@ -11,10 +11,10 @@
       $unit = $rows['unit'];
       echo '
         <tr>
-          <td class="description     po monospace">'.$jobID.'/'.$po                    .'</td>
-          <td class="quantity        po monospace">'.number_format($qty)               .'</td>
-          <td class="times-purchased po monospace">                                      </td>
-          <td class="purchase-price  po monospace">$'.number_format($cost, 2).'/'.$unit.'</td>
+          <td class="description-po     monospace">'.$jobID.'/'.$po                    .'</td>
+          <td class="quantity-po        monospace text-right">'.number_format($qty)               .'</td>
+          <td class="times-purchased-po monospace text-right"></td>
+          <td class="purchase-price-po  monospace text-right">$'.number_format($cost, 2).'/'.$unit.'</td>
         </tr>'
       ;
     }

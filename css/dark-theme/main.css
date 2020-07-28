@@ -10,7 +10,9 @@ colors {
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 main, 
@@ -231,6 +233,12 @@ tr:nth-child(even) {
 }
 .monospace {
   font-family: 'Courier Prime', monospace;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
 }
 .temp {
   color: red !important;

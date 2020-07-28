@@ -65,7 +65,7 @@
                 {
                   echo '
                     <tr id="'. $row["ID"] .'">
-                      <td><a href="job-page.php?job='.$row["ID"].'&report=Release+Tracker">'. $row["ID"] . '</a></td>
+                      <td id="'. $row["ID"] .'" class="job-button" style="padding-left:10px">'. $row["ID"] . '</td>
                       <td>
                         <form action="user-page.php" method="get">
                           <input type="checkbox"

@@ -54,16 +54,16 @@ $result = mysqli_query($con, $query);
         $totalcost   = $row['total-cost'      ];
         $cyclerent   = $row['cycle rent'      ];
         echo"
-        <tr onclick=rentalEdit(e)>
-          <td class='monospace' style='padding-left: 10px'>".$description."</td>
-          <td class='monospace' style='text-align: center'>".$eqnum      ."</td>
-          <td class='monospace' style='text-align: center'>".$ponum      ."</td>
-          <td class='monospace' style='text-align: center'>".date_format($startdate,  "M d, Y") ."</td>
+        <tr id='".$ponum."' class='rental-line'>
+          <td class='monospace' style='padding-left: 10px'>".$description.                                   "</td>
+          <td class='monospace' style='text-align: center'>".$eqnum      .                                   "</td>
+          <td class='monospace' style='text-align: center'>".$ponum      .                                   "</td>
+          <td class='monospace' style='text-align: center'>".date_format($startdate,  "M d, Y") .            "</td>
           <td class='finish-date monospace' style='text-align: center'>".date_format($finishdate, "M d, Y") ."</td>
-          <td class='monospace' style='text-align: center'>".$duration   ."</td>
-          <td class='monospace' style='text-align: center'>".$cyclelength."</td>
-          <td class='monospace' style='text-align: center'>$".number_format($totalcost)."</td>
-          <td class='monospace' style='text-align: center'>$".number_format($cyclerent)."</td>
+          <td class='monospace' style='text-align: center'>".$duration   .                                   "</td>
+          <td class='monospace' style='text-align: center'>".$cyclelength.                                   "</td>
+          <td class='monospace' style='text-align: center'>$".number_format($totalcost).                     "</td>
+          <td class='monospace' style='text-align: center'>$".number_format($cyclerent).                     "</td>
         </tr>
         ";
       }

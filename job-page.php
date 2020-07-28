@@ -144,9 +144,8 @@
     </div>
 
   </main>
-
-
-
+  
+  <?php if (isset($_GET['po'])) { include("php/job-page/rental-details.php");} ?>
 
 
   <?php include('php/footer.php') ?>
