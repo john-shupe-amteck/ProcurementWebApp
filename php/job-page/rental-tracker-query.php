@@ -62,8 +62,8 @@ $result = mysqli_query($con, $query);
           <td class='finish-date monospace' style='text-align: center'>".date_format($finishdate, "M d, Y") ."</td>
           <td class='monospace' style='text-align: center'>".$duration   .                                   "</td>
           <td class='monospace' style='text-align: center'>".$cyclelength.                                   "</td>
-          <td class='monospace' style='text-align: center'>$".number_format($totalcost).                     "</td>
-          <td class='monospace' style='text-align: center'>$".number_format($cyclerent).                     "</td>
+          <td class='text-right monospace' >$".number_format($totalcost, 2).                                 "</td>
+          <td class='text-right monospace' style='padding-right: 10px'>$".number_format($cyclerent, 2).      "</td>
         </tr>
         ";
       }

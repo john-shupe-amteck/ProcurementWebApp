@@ -59,10 +59,4 @@ $(function() {
     parent.location = "job-page.php?job=" + job + "&report=Rental+Tracker&po=" + po;
     return false;
   })
-
-  $(".close").click(function(e) {
-    $(".rental-details-popup, .popup-content").removeClass("active");
-  })
-
-
 });

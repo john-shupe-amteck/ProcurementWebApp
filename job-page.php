@@ -3,9 +3,36 @@
 
   $job = $_GET['job'];
 
-  if (is_null($_SESSION['user_id'])) [
-    header("Location: index.php")
-  ];
+  if (is_null($_SESSION['user_id'])) {
+    header("Location: index.php");
+  }
+
+  // Update PO details if set
+  if (isset($_POST['po'])) {
+
+    $po = $_POST['po'];
+    $id = $_POST['id'];
+    $eq_num = $_POST['eq_num'];
+    $start = $_POST['start'];
+    $duration = $_POST['duration'];
+    $cycle = $_POST['cycle'];
+    $total = $_POST['total'];
+    $descrip = $_POST['descrip'];
+
+    $query = 'UPDATE `eq_tracker_details` 
+      SET
+          `equipment-number`="'.$eq_num.'",
+          `PO-number`="'.$po.'",
+          `start-date`="'.$start.'",
+          `duration`='.$duration.',
+          `cycle-length`='.$cycle.',
+          `total-cost`='.$total.',
+          `equipmentID`="'.$descrip.'"
+      WHERE ID='.$id
+    ;
+    
+    $result = mysqli_query($con, $query);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +124,9 @@
         break;
       }
       ?>
+      <div id="buttons">
+
+      </div>
     </div>
 
     <!-- Filter Inputs Underneath Data Container -->
