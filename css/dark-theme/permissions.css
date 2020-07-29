@@ -1,6 +1,7 @@
 #user-permissions-editor {
-  overflow: scroll;
+  overflow: auto;
   background: rgba(238, 229, 233, .90);
+  height: 97.5%;
 }
 
 #user-permissions-editor > table {
@@ -16,7 +17,7 @@ th.rotate {
 
 th.rotate > div {
   transform: 
-    translate(25px, 51px)
+    translate(34px, 49px)
     rotate(315deg);
   width: 30px;
 }
@@ -24,4 +25,16 @@ th.rotate > div {
 th.rotate > div > span {
   border-bottom: 1px solid black;
   padding: 5px 12px;
+}
+
+td {
+  border-right: 1px solid black;
+}
+
+th {
+  width: 50px;
+}
+
+#spacer-column {
+  width: unset;
 }

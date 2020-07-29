@@ -6,15 +6,16 @@
   if (is_null($_SESSION['user_id'])) [
     header("Location: index.php")                                                                           // redirects back to login page
   ];
-  if (isset($_GET['description'])) {
-    if ($_GET['description'] == "") [
-      $_GET['description'] = "Partial Description"
-    ];
-  };
-  if (isset($_GET['code'])) {
-    if ($_GET['code'] == "") [
-      $_GET['code'] = "Select Sort Code"
-    ];
+
+  $myPost = array_values($_POST);
+
+  if (isset($myPost[0])) {
+    $query = "DELETE FROM permissions WHERE userID = (SELECT ID FROM users WHERE username='".$myPost[0]."')";
+    mysqli_query($con, $query);
+    for ($i=1; $i < count($myPost); $i++) {
+      $query = "INSERT INTO permissions(ID, userID, jobID) VALUES ('',(SELECT ID FROM users WHERE username='".$myPost[0]."'),'".$myPost[$i]."')";
+      mysqli_query($con, $query);
+    }
   }
 ?>
 
