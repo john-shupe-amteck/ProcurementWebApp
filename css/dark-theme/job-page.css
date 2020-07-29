@@ -102,7 +102,7 @@ colors {
 
 #main-data {
   height: 96.5%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #totals-row {
   height: 5%;
