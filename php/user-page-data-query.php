@@ -169,7 +169,7 @@
     echo ($pototal == 0)?"<td class='po-total monospace'></td>"    :"<td class='po-total monospace'>".number_format($pototal,2) ."</td>";
 
     // color positive variance as normal
-    if ($poqty/$budqty < .95){
+    if ($budqty != 0 && $poqty/$budqty < .95){
       echo "
         <td class='var-quantity monospace'>".number_format($variance)."</td>"      ;
     // color negative variance red

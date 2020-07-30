@@ -4,7 +4,7 @@
 $jobid = $_GET['job'];
 
 $select = 'SELECT
-    equipmentID description,
+    description,
     `equipment-number`,
     `PO-number`,
     `start-date`,

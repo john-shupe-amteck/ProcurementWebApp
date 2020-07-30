@@ -10,17 +10,17 @@
   ?>
 <div class="rental-details-popup active">
   <div class="popup-content active">
-    <form id="rental-details-form" method="POST" action="job-page.php?job=C19KY01007&report=Rental+Tracker">
+    <form id="rental-details-form" method="POST" action="job-page.php?job=<?php echo $_GET['job'] ?>&report=Rental+Tracker">
       <?php
         while ($row = mysqli_fetch_array($result)) {
           $id = $row[0];
           $eq_num = $row[1];
-          $start = $row[3];
-          $duration = $row[4];
-          $cycle = $row[5];
-          $total = $row[6];
-          $descrip = $row[8];
-          $notes = $row[9];
+          $start = $row[4];
+          $duration = $row[5];
+          $cycle = $row[6];
+          $total = $row[7];
+          $descrip = $row[9];
+          $notes = $row[8];
           echo'
 
           <div id="po-input-div">
@@ -46,7 +46,7 @@
             <input type="text" name="cycle" id="cycle-input" value="'.$cycle.'"><br>
       
             <label for="total-input">Total Cost:</label>
-            <input type="text" name="total" id="total-input" value="$'.number_format($total, 2).'"><br>
+            <input type="text" name="total" id="total-input" value="'.number_format($total, 2).'"><br>
       
             <label for="descrip-input">Desctiption:</label>
             <input type="text" name="descrip" id="descrip-input" value="'.$descrip.'"> <br>     

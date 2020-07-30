@@ -26,9 +26,9 @@
           `start-date`="'.$start.'",
           `duration`='.$duration.',
           `cycle-length`='.$cycle.',
-          `total-cost`='.$total.',
-          `equipmentID`="'.$descrip.'"
-      WHERE ID='.$id
+          `total-cost`="'.$total.'",
+          `description`="'.$descrip.'"
+      WHERE equipmentID='.$id
     ;
     
     $result = mysqli_query($con, $query);
