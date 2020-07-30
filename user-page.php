@@ -163,12 +163,26 @@
           <table>
             <thead>
               <tr>
+                <th></th>
+                <th colspan="5">Budgeted</th>
+                <th colspan="5">Purchased</th>
+                <th colspan="3">Variance</th>
+              </tr>
+              <tr>
                 <th class='item-name'>Item</th>
-                <th class='budget-quantity'>Budget Quantity</th>
+                <th class='budget-quantity'>Quantity</th>                
+                <th></th>
                 <th class='budget-cost'>Cost</th>
-                <th class='po-quantity'>Purchased Quantity</th>
+                <th></th>
+                <th class='budget-total'>Total</th>
+                <th class='po-quantity'>Quantity</th>
+                <th></th>
                 <th class='po-cost'>Cost</th>
-                <th class='variance'>Variance</th>
+                <th></th>
+                <th class='po-total'>Total</th>
+                <th class='var-quantity'>Quantity</th>
+                <th></th>
+                <th class="var-total">Total</th>
               </tr>
             </thead>
             <tbody>

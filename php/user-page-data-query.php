@@ -11,9 +11,9 @@
   if (isset($_GET['description'])) {
     $description = $_GET['description'];
   }
-  
-  
-  // Budgeted Query
+
+
+// Budgeted Query
   $select = "CREATE OR REPLACE VIEW budgeted AS
     SELECT
       `procurement-web-app`.`budget-details`.`itemID`           AS `itemID`,
@@ -50,13 +50,13 @@
     ;
   }
 
-  // Run Budget Query
+// Run Budget Query
   $group_by = "GROUP BY `procurement-web-app`.`budget-details`.`itemID` ";
   $order_by = "ORDER BY SUM(`procurement-web-app`.`budget-details`.`quantity`) DESC";
   $query = $select.$where.$group_by.$order_by;
   mysqli_query($con, $query);
-  
-  // Purchased Query Setup
+
+// Purchased Query Setup
   $select = "CREATE OR REPLACE VIEW purchased AS
     SELECT
       `procurement-web-app`.`purchase-details`.`itemID`           AS `itemID`,
@@ -80,58 +80,124 @@
     ;
   }
 
-  // Run Purchased query
+// Run Purchased query
   $group_by = "GROUP BY `procurement-web-app`.`purchase-details`.`itemID`";
   $order_by = "ORDER BY sum(`procurement-web-app`.`purchase-details`.`quantity`) desc";
   $query = $select.$where.$group_by.$order_by;
   mysqli_query($con, $query);
-
+// Final Query
   if (isset($description) && $description != "Partial Description") {
-    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%' order by itemID";
+    $query = "SELECT
+        *,
+        budqty * budcost * (
+          SELECT
+            conversion
+          FROM
+            `cost-units`
+          WHERE
+            ID = budunit
+        ) AS budtotal,
+        poqty * pocost * (
+          SELECT
+            conversion
+          FROM
+            `cost-units`
+          WHERE
+            ID = pounit
+        ) AS pototal
+      FROM
+        procurementreport
+      WHERE name like '%".$description."%'
+      order by itemID"
+    ;
   } else {
-    $query = "SELECT * FROM procurementreport order by itemID";
+    $query = "SELECT
+        *,
+        budqty * budcost * (
+          SELECT
+            conversion
+          FROM
+            `cost-units`
+          WHERE
+            ID = budunit
+        ) AS budtotal,
+        poqty * pocost * (
+          SELECT
+            conversion
+          FROM
+            `cost-units`
+          WHERE
+            ID = pounit
+        ) AS pototal
+      FROM
+        procurementreport
+      order by itemID"
+    ;
   }
 
   $result = mysqli_query($con, $query);
-
+// Loop to show data
   while ($row = mysqli_fetch_array($result)) {
+    $name = $row['name'];
+    $budqty = $row['budqty'];
+    $budcost = $row['budcost'];
+    $budunit = $row['budunit'];
+    $budtotal = $row['budtotal'];
+    $poqty = $row['poqty'];
+    $pocost = $row['pocost'];
+    $pounit = $row['pounit'];
+    $pototal = $row['pototal'];
+    $variance = $row['variance'];
+
     echo "
       <tr>
-        <td class='item-name       monospace'>".$row['name']."</td>
-        <td class='budget-quantity monospace'>".number_format($row['budqty'])."</td>
-        <td class='budget-cost     monospace'>$".number_format($row['budcost'],2) ."/". $row['budunit']."</td>";
+        <td class='item-name       monospace'>".$name."</td>
+        <td class='budget-quantity monospace'>".number_format($budqty)."</td>
+        <td class='monospace'>$</td>
+        <td class='budget-cost     monospace'>".number_format($budcost,2)."/".$budunit."</td>
+        <td class='monospace'>$</td>
+        <td class='budget-total       monospace'>".number_format($budtotal, 2)."</td>";
 
-    if ($row['poqty'] == 0) {
-      echo "
-        <td class='po-quantity     monospace'></td>";
-    } else {
-      echo "
-        <td class='po-quantity     monospace'>".number_format($row['poqty'])."</td>";
-    }
+    echo ($poqty == 0)  ?"<td class='po-quantity monospace'></td>" :"<td class='po-quantity monospace'>".number_format($poqty)."</td>";
 
-    if ($row['pocost'] == 0) {
-      echo "
-      <td class='po-cost           monospace'></td>";
-    } else {
-      echo "
-      <td class='po-cost           monospace'>$".number_format($row['pocost'],2) ."/". $row['pounit']."</td>";
-    }
+    echo "<td class='monospace'>$</td>";
+
+    echo ($pocost == 0) ?"<td class='po-cost monospace'></td>"     :"<td class='po-cost monospace'>".number_format($pocost,2) ."/". $pounit."</td>";
+
+    echo "<td class='monospace'>$</td>";
+
+    echo ($pototal == 0)?"<td class='po-total monospace'></td>"    :"<td class='po-total monospace'>".number_format($pototal,2) ."</td>";
 
     // color positive variance as normal
-    if ($row['variance']>0){
+    if ($poqty/$budqty < .95){
       echo "
-        <td class='variance        monospace'>".number_format($row['variance'])."</td>
-      </tr>"
-      ;
+        <td class='var-quantity monospace'>".number_format($variance)."</td>"      ;
     // color negative variance red
-    } elseif ($row['variance']<0) {
+    } elseif ($budqty != 0 && $poqty/$budqty > .95 && $poqty/$budqty < 1) {
       echo "
-        <td class='variance        monospace' style='color:red'>".number_format($row['variance'])."</td>
-      </tr>";
+        <td class='var-quantity monospace' style='color:darkred'>".number_format(abs($variance))."</td>";
+    } elseif ($variance < 0) {
+      echo "
+        <td class='var-quantity monospace' style='color:red'>".number_format(abs($variance))."</td>";
     } else {
       echo "
-      <td class='variance          monospace' style='color:red'></td>
-    </tr>";
+      <td class='var-quantity monospace'></td>";
     }
+
+    echo "<td class='monospace'>$</td>";
+
+    if (($budtotal - $pototal) > 0){
+      echo "
+        <td class='var-quantity monospace'>".number_format(($budtotal - $pototal), 2)."</td>"      ;
+    // color negative variance red
+    } elseif (($budtotal - $pototal) < 0) {
+      echo "
+        <td class='var-quantity monospace' style='color:red'>".number_format(abs($budtotal - $pototal), 2)."</td>";
+    } else {
+      echo "
+      <td class='var-quantity monospace'></td>";
+    }
+
+    echo '</tr>';
   }
 ?>

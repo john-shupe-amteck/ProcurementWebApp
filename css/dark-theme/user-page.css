@@ -57,24 +57,23 @@ colors {
   overflow-y: auto;
   overflow-x: hidden;
 }
-
-.budget-cost,
-.po-cost,
-.variance {
-  width: 100px;
-}
-.budget-quantity,
-.po-quantity{
-  width: 200px;
-}
 td.budget-quantity,
 td.budget-cost,
+td.budget-total,
 td.po-quantity,
 td.po-cost,
-td.variance{
+td.po-total,
+td.var-quantity,
+td.var-total{
   text-align: right;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.budget-total,
+.po-total,
+.item-name {
+  border-right: 1px black solid;
 }
 
 /* table line styling */
