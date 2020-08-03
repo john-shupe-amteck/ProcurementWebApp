@@ -169,20 +169,20 @@
                 <th colspan="3">Variance</th>
               </tr>
               <tr>
-                <th class='item-name'>Item</th>
-                <th class='budget-quantity'>Quantity</th>                
+                <th id="name" class='sort-header item-name'>Item</th>
+                <th id="bud-quantity" class='sort-header budget-quantity'>Quantity</th>                
                 <th></th>
-                <th class='budget-cost'>Cost</th>
+                <th id="bud-cost" class='sort-header budget-cost'>Cost</th>
                 <th></th>
-                <th class='budget-total'>Total</th>
-                <th class='po-quantity'>Quantity</th>
+                <th id="bud-total" class='sort-header budget-total'>Total</th>
+                <th id="po-quantity" class='sort-header po-quantity'>Quantity</th>
                 <th></th>
-                <th class='po-cost'>Cost</th>
+                <th id="po-cost" class='sort-header po-cost'>Cost</th>
                 <th></th>
-                <th class='po-total'>Total</th>
-                <th class='var-quantity'>Quantity</th>
+                <th id="po-total" class='sort-header po-total'>Total</th>
+                <th id="var-quantity" class='sort-header var-quantity'>Quantity</th>
                 <th></th>
-                <th class="var-total">Total</th>
+                <th id="var-total" class="sort-header var-total">Total</th>
               </tr>
             </thead>
             <tbody>
@@ -202,6 +202,21 @@
     <script>
       elem = document.getElementById("<?php echo $_GET["job"] ?>");
       elem.style.backgroundColor = "gray";
-    </script>';
+    </script>
+    <script>
+      $('.sort-header').click(function(e) {
+        var sort_value = $(this).attr('id');
+        var job = "<?php echo $_GET['job'] ?>";
+        var job_name = "<?php echo $_GET['job_name'] ?>";
+        var code = "<?php echo $_GET['code'] ?>";
+        var description ="<?php echo $_GET['description'] ?>"
+        parent.location = "user-page.php?job="+ job +"&job_name="+ job_name +"&code="+ code +"&description="+ description +"&order="+ sort_value;
+      })
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#<?php echo $_GET['order'] ?>").html($("#<?php echo $_GET['order'] ?>").html() + "^");
+      });
+    </script>
   </body>
 </html>
