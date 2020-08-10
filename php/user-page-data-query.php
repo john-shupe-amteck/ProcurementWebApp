@@ -158,51 +158,51 @@
 
     echo "
       <tr>
-        <td class='item-name       monospace'>".$name."</td>
-        <td class='budget-quantity monospace'>".number_format($budqty)."</td>
-        <td class='monospace'>$</td>
-        <td class='budget-cost     monospace'>".number_format($budcost,2)."/".$budunit."</td>
-        <td class='monospace'>$</td>
-        <td class='budget-total       monospace'>".number_format($budtotal, 2)."</td>";
+        <td class='item-name monospace'>".$name."</td>
+        <td class='bud-quantity monospace text-right'>".number_format($budqty)."</td>
+        <td class='dollars monospace'>$</td>
+        <td class='bud-cost monospace text-right'>".number_format($budcost,2)."/".$budunit."</td>
+        <td class='dollars monospace'>$</td>
+        <td class='bud-total monospace text-right'>".number_format($budtotal, 2)."</td>";
 
-    echo ($poqty == 0)  ?"<td class='po-quantity monospace'></td>" :"<td class='po-quantity monospace'>".number_format($poqty)."</td>";
+    echo ($poqty == 0)  ?"<td class='po-quantity monospace'></td>" :"<td class='po-quantity monospace text-right'>".number_format($poqty)."</td>";
 
-    echo "<td class='monospace'>$</td>";
+    echo "<td class='dollars monospace'>$</td>";
 
-    echo ($pocost == 0) ?"<td class='po-cost monospace'></td>"     :"<td class='po-cost monospace'>".number_format($pocost,2) ."/". $pounit."</td>";
+    echo ($pocost == 0) ?"<td class='po-cost monospace'></td>"     :"<td class='po-cost monospace text-right'>".number_format($pocost,2) ."/". $pounit."</td>";
 
-    echo "<td class='monospace'>$</td>";
+    echo "<td class='dollars monospace'>$</td>";
 
-    echo ($pototal == 0)?"<td class='po-total monospace'></td>"    :"<td class='po-total monospace'>".number_format($pototal,2) ."</td>";
+    echo ($pototal == 0)?"<td class='po-total monospace'></td>"    :"<td class='po-total monospace text-right'>".number_format($pototal,2) ."</td>";
 
     // color positive variance as normal
     if ($budqty != 0 && $poqty/$budqty < .95){
       echo "
-        <td class='var-quantity monospace'>".number_format($variance)."</td>"      ;
+        <td class='var-quantity monospace text-right'>".number_format($variance)."</td>"      ;
     // color negative variance red
     } elseif ($budqty != 0 && $poqty/$budqty > .95 && $poqty/$budqty < 1) {
       echo "
-        <td class='var-quantity monospace' style='color:orange'>".number_format(abs($variance))."</td>";
+        <td class='var-quantity monospace text-right' style='color:orange'>".number_format(abs($variance))."</td>";
     } elseif ($variance < 0) {
       echo "
-        <td class='var-quantity monospace' style='color:red'>".number_format(abs($variance))."</td>";
+        <td class='var-quantity monospace text-right' style='color:red'>".number_format(abs($variance))."</td>";
     } else {
       echo "
       <td class='var-quantity monospace'></td>";
     }
 
-    echo "<td class='monospace'>$</td>";
+    echo "<td class='dollars monospace'>$</td>";
 
     if (($budtotal - $pototal) > 0){
       echo "
-        <td class='var-quantity monospace'>".number_format($variance2, 2)."</td>"      ;
+        <td class='var-total monospace text-right'>".number_format($variance2, 2)."</td>"      ;
     // color negative variance red
     } elseif (($budtotal - $pototal) < 0) {
       echo "
-        <td class='var-quantity monospace' style='color:red'>".number_format(abs($variance2), 2)."</td>";
+        <td class='var-total monospace text-right' style='color:red'>".number_format(abs($variance2), 2)."</td>";
     } else {
       echo "
-      <td class='var-quantity monospace'></td>";
+      <td class='var-total monospace'></td>";
     }
 
     echo '</tr>';

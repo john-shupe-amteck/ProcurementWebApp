@@ -54,23 +54,11 @@ colors {
   width: 99%;
   height: 99%;
   float: left;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
-td.budget-quantity,
-td.budget-cost,
-td.budget-total,
-td.po-quantity,
-td.po-cost,
-td.po-total,
-td.var-quantity,
-td.var-total{
-  text-align: right;
-  padding-left: 10px;
-  padding-right: 10px;
-}
 
-.budget-total,
+.bud-total,
 .po-total,
 .item-name {
   border-right: 1px black solid;
@@ -107,4 +95,45 @@ td.var-total{
 
 .content-container {
   margin: unset;
+}
+
+#table-header {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+#table-data {
+  height: 95%;
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.item-name {
+  width: 27%;
+  min-width: 27%;
+  max-width: 27%;
+}
+.po-quantity, .var-quantity {
+  width: 8%;
+  min-width: 8%;
+  max-width: 8%;
+}
+.bud-quantity {
+  width: 7%;
+  min-width: 7%;
+  max-width: 7%;
+}
+.bud-cost, .bud-total, .po-cost, .po-total, .var-total {
+  width: 9%;
+  min-width: 9%;
+  max-width: 9%;
+}
+
+.dollars {
+  width: 1%;
+  min-width: 1%;
+  max-width: 1%;
+  border-left: 1px black solid;
+  padding-left: 2px;
 }

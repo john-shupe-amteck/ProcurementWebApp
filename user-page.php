@@ -147,49 +147,55 @@
 
       <div id="data-panel">
         <div id="data" class="content-container">
-          <?php
-            if (isset($_GET['job'])) {
-              $job_name = $_GET['job_name'];
-            }
-            if (isset($job_name)){ 
-              echo "
-                <h1 style='text-align:left;'>".$job_name."</h1>"
-              ;
-            }
-          ?>
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th colspan="5">Budgeted</th>
-                <th colspan="5">Purchased</th>
-                <th colspan="3">Variance</th>
-              </tr>
-              <tr>
-                <th id="name" class='sort-header item-name'>Item</th>
-                <th id="bud-quantity" class='sort-header budget-quantity'>Quantity</th>                
-                <th></th>
-                <th id="bud-cost" class='sort-header budget-cost'>Cost</th>
-                <th></th>
-                <th id="bud-total" class='sort-header budget-total'>Total</th>
-                <th id="po-quantity" class='sort-header po-quantity'>Quantity</th>
-                <th></th>
-                <th id="po-cost" class='sort-header po-cost'>Cost</th>
-                <th></th>
-                <th id="po-total" class='sort-header po-total'>Total</th>
-                <th id="var-quantity" class='sort-header var-quantity'>Quantity</th>
-                <th></th>
-                <th id="var-total" class="sort-header var-total">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                if (isset($_GET['job'])) {
-                  include('php/user-page-data-query.php');
-                }
-              ?>
-            </tbody>
-          </table>
+          <div id="table-header">
+            <?php
+              if (isset($_GET['job'])) {
+                $job_name = $_GET['job_name'];
+              }
+              if (isset($job_name)){ 
+                echo "
+                  <h1 style='text-align:left;'>".$job_name."</h1>"
+                ;
+              }
+            ?>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th colspan="5">Budgeted</th>
+                  <th colspan="5">Purchased</th>
+                  <th colspan="3">Variance</th>
+                </tr>
+                <tr>
+                  <th id="name" class='sort-header item-name'>Item</th>
+                  <th id="bud-quantity" class='sort-header bud-quantity'>Quantity</th>                
+                  <th class="dollars"></th>
+                  <th id="bud-cost" class='sort-header bud-cost'>Cost</th>
+                  <th class="dollars"></th>
+                  <th id="bud-total" class='sort-header bud-total'>Total</th>
+                  <th id="po-quantity" class='sort-header po-quantity'>Quantity</th>
+                  <th class="dollars"></th>
+                  <th id="po-cost" class='sort-header po-cost'>Cost</th>
+                  <th class="dollars"></th>
+                  <th id="po-total" class='sort-header po-total'>Total</th>
+                  <th id="var-quantity" class='sort-header var-quantity'>Quantity</th>
+                  <th class="dollars"></th>
+                  <th id="var-total" class="sort-header var-total">Total</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div id="table-data">
+            <table>
+              <tbody>
+                <?php
+                  if (isset($_GET['job'])) {
+                    include('php/user-page-data-query.php');
+                  }
+                ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>
