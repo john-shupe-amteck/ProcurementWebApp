@@ -8,11 +8,11 @@
     }
 
     $select = "SELECT
-      A.description                                                AS description,
-      sum(quantity)                                                AS qty,
-      avg(`unit-cost`)                                             AS 'unit-cost',
-      `cost-unitID`                                                AS 'cost-unitID',
-      `cost-units`.`conversion`                                    AS conversion,
+      A.description AS description,
+      sum(quantity) AS qty,
+      avg(`unit-cost`) AS 'unit-cost',
+      `cost-unitID` AS 'cost-unitID',
+      `cost-units`.`conversion` AS conversion,
       sum(quantity) * avg(`unit-cost`) * `cost-units`.`conversion` AS total
       ";
     $from = "FROM `budget-details` A ";

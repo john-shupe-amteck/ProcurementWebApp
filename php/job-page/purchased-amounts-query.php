@@ -119,7 +119,7 @@
               </tr>'
             ;
             // query with specific item details
-            $query2 = 'SELECT jobID, `PO-number`, quantity, `unit-cost`, `cost-unitID` as unit FROM `purchase-details` WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'" ORDER BY `PO-number`';
+            $query2 = 'SELECT jobID, `PO-number`, sum(quantity) as quantity, avg(`unit-cost`) as `unit-cost`, `cost-unitID` as unit FROM `purchase-details` WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'" GROUP BY `PO-number` ORDER BY `PO-number`';
             $result2 = mysqli_query($con, $query2);
 
             // adds in the po table

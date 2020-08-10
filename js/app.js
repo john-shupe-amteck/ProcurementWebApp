@@ -8,15 +8,15 @@ $(function() {
   $(".finish-date").each(function (index, element) {
     var a = new Date($(this).text());
     var b = new Date();
-    
+
     if (a < b) {
       $(this).css("color", "red");
-    }  
+    }
   });
 
   // toggles visibility of PO tables
-  $(".main-info").click(function (e) { 
-    $(this).next().toggle(200);    
+  $(".main-info").click(function (e) {
+    $(this).next().toggle(200);
   });
 
   // Makes job # take back to user page
@@ -26,7 +26,7 @@ $(function() {
   })
 
   // Makes job # take to job page
-  $('.job-button').click(function (e) { 
+  $('.job-button').click(function (e) {
     var job = $(this).attr('id');
     parent.location = "job-page.php?job=" + job + "&report=Budgeted+Amounts";
     return false;

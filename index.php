@@ -58,9 +58,6 @@
     <header class="top-nav">
       <a class="home-link"   href="index.php">   Amteck Procurement</a>
       <a class="link active" href="index.php">   Home</a>
-      <!-- <a class="link"        href="news.php">    News</a>
-      <a class="link"        href="contact.php"> Contact</a>
-      <a class="link"        href="about.php">   About</a> -->
     </header>
 
 

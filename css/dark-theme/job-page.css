@@ -27,6 +27,7 @@ colors {
   width: 84%;
   height: 50px;
   float: left;
+  overflow: hidden;
 }
 
 .report-button input:hover {
@@ -208,4 +209,14 @@ label {
   height: 5%;
   width: 100%;
   box-shadow: 0px 5px 10px black;
+}
+
+.sub-table {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, .90) inset;
+}
+.sub-table .description {
+  padding-left: 5%;
+}
+.sub-table tr {
+  border: none;
 }

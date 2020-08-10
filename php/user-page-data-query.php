@@ -140,7 +140,6 @@
   } else {
     $query = "SELECT * FROM procurementreport WHERE ".$where1." ORDER BY ".$order;
   }
-
   $result = mysqli_query($con, $query);
 // Loop to show data
   while ($row = mysqli_fetch_array($result)) {
