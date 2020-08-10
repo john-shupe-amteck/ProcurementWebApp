@@ -5,9 +5,6 @@ colors {
   color: #92DCE5;
   color: #52DEE5;
 }
-
-
-
 .main-display {
   position: relative;
   width: 84%;
@@ -37,18 +34,27 @@ colors {
   color: #EEE5E9;
 }
 .description {
-  width:500px;
+  width: 30%;
+  min-width: 30%;
+  max-width: 30%;
 }
 .quantity {
-  width: 100px;
+  width: 12%;
+  min-width: 12%;
+  max-width: 12%;
   padding-right: 25px;
 }
 .times-purchased {
-  width: 100px;
+  width: 12%;
+  min-width: 12%;
+  max-width: 12%;
   padding-right: 25px;
 }
 .purchase-price {
-  padding-right: 700px;
+  width: 40%;
+  min-width: 40%;
+  max-width: 40%;
+  padding-right: 30%;
 }
 
 
@@ -63,17 +69,28 @@ colors {
   float: right;
 }
 
+.budgeted-amount-description {
+  width: 30%;
+  min-width: 30%;
+  max-width: 30%;
+}
 .budgeted-amount-cost {
-  width: 65px;
+  width: 10%;
+  min-width: 10%;
+  max-width: 10%;
   padding-right: 25px;
 }
 .budgeted-amount-quantity {
-  width: 65px;
+  width: 10%;
+  min-width: 10%;
+  max-width: 10%;
   padding-right: 25px;
 }
 .budgeted-amount-total {
-  width: 100px;
-  padding-right: 800px;
+  width: 60%;
+  min-width: 60%;
+  max-width: 60%;
+  padding-right: 40%;
 }
 
 .item-button {
@@ -101,30 +118,20 @@ colors {
 }
 
 #main-data {
-  height: 96.5%;
+  height: 90%;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #383D3B #EEE5E9;
 }
 #totals-row {
   height: 5%;
+  box-shadow: 0px -5px 10px black;
 }
 
 #filter-bar-form input {
   margin-top: .5%;
   margin-left: 2px;
 }
-
-#total-quantity {
-  padding-right: 122px;
-}
-
-#total-total {
-  padding-right: 817px;
-  width: 100px;
-}
-
-
-
-
 
 /* Pop up Class Structure */
 .rental-details-popup {
@@ -192,4 +199,13 @@ label {
 
 #po-input-div {
   margin-top: 50px;
+}
+#totals-row table, 
+#table-headers table {
+  height: 102%;
+}
+#table-headers {
+  height: 5%;
+  width: 100%;
+  box-shadow: 0px 5px 10px black;
 }

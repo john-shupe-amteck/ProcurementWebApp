@@ -1,10 +1,7 @@
 <!-- Setup php -->
 <?php
-  include('php/config.php');
+  include('php/config.php'); // app wide config settings
 
-  if (is_null($_SESSION['user_id'])) [
-    header("Location: index.php")                                                                           // redirects back to login page
-  ];
   if (isset($_GET['description'])) {
     if ($_GET['description'] == "") [
       $_GET['description'] = "Partial Description"
@@ -41,7 +38,7 @@
 
 
   <body>
-   <?php include('php/header.php'); ?>
+   <?php include('php/header.php'); ?> <!-- header bar at top of page with nav settings -->
 
     <main class="main-area">
       <div id="options-panel">

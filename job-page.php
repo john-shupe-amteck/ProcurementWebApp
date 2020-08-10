@@ -1,5 +1,5 @@
 <?php
-  include('php/config.php');
+  include('php/config.php'); // app wide php config 
 
   $job = $_GET['job'];
 
@@ -104,6 +104,14 @@
               </form>
             </td>
           </tr>
+          <tr id="Test Report Layout">
+            <td class="report-button">
+              <form action="job-page.php" method="get">
+                <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
+                <input type="submit"   name="report" value="Test Report">
+              </form>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -122,33 +130,22 @@
         case "Rental Tracker" :
           include('php/job-page/rental-tracker-query.php');
         break;
+
+        case "Test Report" :
+          include('php/job-page/test-report-query.php');
+        break;
       }
       ?>
-      <div id="buttons">
-
-      </div>
     </div>
 
     <!-- Filter Inputs Underneath Data Container -->
     <div class="content-container" id="filter-bar">
       <form action="job-page.php" method="GET" id="filter-bar-form">
-        <?php
-          // Hidden input for job#
-          echo '
-          <input type="checkbox"
-            name="job"
-            value="'. $_GET["job"] .'"
-            checked
-            hidden>';
-          // Hidden input for report currently being displayed
-          echo '
-            <input type="checkbox"
-              name="report"
-              value="'. $_GET["report"] .'"
-              checked
-              hidden>';
+        <input type="checkbox" name="job" value="<?php echo $_GET["job"] ?>" checked hidden>
+        <input type="checkbox" name="report" value="<?php echo $_GET["report"] ?>" checked hidden>
 
-          // Sort box for item code, if set -> make placeholder appear | else -> leave empty
+        <!-- Sort box for item code, if set -> make placeholder appear | else -> leave empty -->
+        <?php
           if (isset($_GET['code'])) {
             echo 'Code:<input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="'.$_GET['code'].'"> ';
           } else {
@@ -177,11 +174,9 @@
   
   <?php if (isset($_GET['po'])) { include("php/job-page/rental-details.php");} ?>
 
-
   <?php include('php/footer.php') ?>
-  <?php
-  echo '<script>document.getElementById("'.$_GET['report'].'").style.backgroundColor = "gray"</script>';
-  ?>
+
+ <script> document.getElementById("<?php echo $_GET['report'] ?>").style.backgroundColor = "gray" </script>
 </body>
 
 </html>

@@ -18,4 +18,5 @@
 
   // mysqli connection for data collection
   $con = mysqli_connect("localhost", "root", "", "procurement-web-app");
+  
 ?>

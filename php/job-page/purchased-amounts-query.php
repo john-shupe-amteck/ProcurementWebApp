@@ -1,4 +1,4 @@
-<div id="main-data">
+<!-- PHP  -->
   <?php
     // Changing the purchased view to show appropriate data for job
     // Setting the SELECT statement
@@ -80,44 +80,52 @@
     $query = $select.$from.$where;
     $result = mysqli_query($con, $query);
     
+    $totalRowQuery = $select.$from;
+    $totalRowResults = mysqli_query($con, $totalRowQuery);
   ?>
-  <table>
-    <thead>
-      <tr>
-        <th class="description">                        Description     </th>
-        <th class='quantity'>       Quantity        </th>
-        <th class='times-purchased'>Times Purchased </th>
-        <th class='purchase-price'> Purchase Price  </th>
-      </tr>
-    </thead>
-    <tbody class="non-clickable">
-      <?php
-        // Iterates through results and populates to table
-        while ($row = mysqli_fetch_array($result)) {
+<!-- HTML -->
+  <div id="table-headers">
+    <table>
+      <thead>
+        <tr>
+          <th class="description">Description</th>
+          <th class='quantity'>Quantity</th>
+          <th class='times-purchased'>Times Purchased</th>
+          <th class='purchase-price'>Purchase Price</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div id="main-data">
+    <table>
+      <tbody class="non-clickable">
+        <?php
+          // Iterates through results and populates to table
+          while ($row = mysqli_fetch_array($result)) {
 
-          $id = $row['itemID'];
-          $desc = $row['description'];
-          $qty = $row['quantity'];
-          $times = $row['times_purchased'];
-          $cost = $row['cost'];
-          $unit = $row['unit'];
+            $id = $row['itemID'];
+            $desc = $row['description'];
+            $qty = $row['quantity'];
+            $times = $row['times_purchased'];
+            $cost = $row['cost'];
+            $unit = $row['unit'];
 
-          echo '
-            <tr class="main-info">
-              <td class="description     monospace">'.$desc.'</td>
-              <td class="quantity        monospace" style="text-align:right">'. number_format($qty)       .'</td>
-              <td class="times-purchased monospace" style="text-align:right">'. number_format($times).'</td>
-              <td class="purchase-price  monospace" style="text-align:right">$'.number_format($cost, 2).'/'.$unit.'</td>
-            </tr>'
-          ;
-          // query with specific item details
-          $query2 = 'SELECT jobID, `PO-number`, quantity, `unit-cost`, `cost-unitID` as unit FROM `purchase-details` WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'" ORDER BY `PO-number`';
-          $result2 = mysqli_query($con, $query2);
+            echo '
+              <tr class="main-info">
+                <td class="description     monospace">'.$desc.'</td>
+                <td class="quantity        monospace" style="text-align:right">'. number_format($qty)       .'</td>
+                <td class="times-purchased monospace" style="text-align:right">'. number_format($times).'</td>
+                <td class="purchase-price  monospace" style="text-align:right">$'.number_format($cost, 2).'/'.$unit.'</td>
+              </tr>'
+            ;
+            // query with specific item details
+            $query2 = 'SELECT jobID, `PO-number`, quantity, `unit-cost`, `cost-unitID` as unit FROM `purchase-details` WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'" ORDER BY `PO-number`';
+            $result2 = mysqli_query($con, $query2);
 
-          // adds in the po table
-          include('PO-subtable.php');          
-        }
-      ?>
-    </tbody>
-  </table>
-</div>
+            // adds in the po table
+            include('PO-subtable.php');          
+          }
+        ?>
+      </tbody>
+    </table>
+  </div>

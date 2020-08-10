@@ -42,11 +42,12 @@
       $limit = "";
     }
 
-    $query = $select.$from.$left_join.$where.$group_by.$order_by;
+    $query = $select.$from.$left_join.$where.$group_by.$order_by.$limit;
     $result = mysqli_query($con, $query);
     $query = $select.$from.$left_join.$where;
     $result2 = mysqli_query($con, $query);
   ?>
+
 <!-- HTML -->
   <div id="table-headers">
     <table>
@@ -59,18 +60,20 @@
         </tr>
       </thead>
     </table>
+
   </div>
   <div id="main-data">
-    <table>
-      <tbody class="non-clickable">  
+    <table>    
+      <tbody class="non-clickable">
+    
       <?php
         while ($row = mysqli_fetch_array($result)) {
           echo '
             <tr>
             <td class="budgeted-amount-description monospace">'.                          $row["description"]             .'</td>
-            <td class="budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
-            <td class="budgeted-amount-cost text-right monospace">$'. number_format($row["unit-cost"], 2).'/'.$row["cost-unitID"].'</td>
-            <td class="budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
+            <td class="budgeted-amount-quantity monospace text-right">'. number_format($row["qty"])      .'</td>
+            <td class="budgeted-amount-cost monospace text-right">$'. number_format($row["unit-cost"], 2).'/'.$row["cost-unitID"].'</td>
+            <td class="budgeted-amount-total monospace text-right">'. number_format($row["total"], 2).'</td>
             </tr>'
           ;
         }
@@ -86,9 +89,9 @@
             echo '
               <tr>
               <td class="budgeted-amount-description monospace"></td>
-              <td class="budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
+              <td class="budgeted-amount-quantity monospace text-right">'. number_format($row["qty"])      .'</td>
               <td class="budgeted-amount-cost monospace"></td>
-              <td class="budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
+              <td class="budgeted-amount-total monospace text-right">'. number_format($row["total"], 2).'</td>
               </tr>
               '
             ;
