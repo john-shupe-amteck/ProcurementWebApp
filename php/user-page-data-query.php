@@ -182,7 +182,7 @@
     // color negative variance red
     } elseif ($budqty != 0 && $poqty/$budqty > .95 && $poqty/$budqty < 1) {
       echo "
-        <td class='var-quantity monospace' style='color:darkred'>".number_format(abs($variance))."</td>";
+        <td class='var-quantity monospace' style='color:orange'>".number_format(abs($variance))."</td>";
     } elseif ($variance < 0) {
       echo "
         <td class='var-quantity monospace' style='color:red'>".number_format(abs($variance))."</td>";

@@ -209,7 +209,7 @@
         var job = "<?php echo $_GET['job'] ?>";
         var job_name = "<?php echo $_GET['job_name'] ?>";
         var code = "<?php echo $_GET['code'] ?>";
-        var description ="<?php echo $_GET['description'] ?>"
+        var description ="<?php echo $_GET['description'] ?>";
         parent.location = "user-page.php?job="+ job +"&job_name="+ job_name +"&code="+ code +"&description="+ description +"&order="+ sort_value;
       })
     </script>
