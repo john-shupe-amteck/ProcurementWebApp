@@ -1,6 +1,6 @@
 <!-- PHP  -->
   <?php
-    include('php/config.php'); // app wide php config 
+    include('php/config.php'); // app wide php config
 
     $job = $_GET['job'];
 
@@ -20,7 +20,7 @@
       $total = $_POST['total'];
       $descrip = $_POST['descrip'];
 
-      $query = 'UPDATE `eq_tracker_details` 
+      $query = 'UPDATE `eq_tracker_details`
         SET
             `equipment-number`="'.$eq_num.'",
             `PO-number`="'.$po.'",
@@ -31,8 +31,20 @@
             `description`="'.$descrip.'"
         WHERE equipmentID='.$id
       ;
-      
+
       $result = mysqli_query($con, $query);
+    }
+
+    function createButton($name, $job) {
+      echo"
+        <tr id='$name'>
+          <td class='report-button'>
+            <form action='job-page.php' method='get'>
+              <input type='hidden' name='job'    value='$job'>
+              <input type='submit' name='report' value='$name'>
+            </form>
+          </td>
+        </tr>";
     }
   ?>
 <!-- HTML -->
@@ -59,6 +71,8 @@
       <!-- link for google fonts TODO: move into the main .css -->
       <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="//ajax.aspnetcdn.com/ajax/4.0/1/MicrosoftAjax.js" type="text/javascript"></script>
+      <script src="js/download.js"></script>
 
       <title>Amteck Procurement</title>
     </head>
@@ -73,38 +87,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr id="Budgeted Amounts">
-                <td class="report-button">
-                  <form action="job-page.php" method="get">
-                    <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-                    <input type="submit"   name="report" value="Budgeted Amounts">
-                  </form>
-                </td>
-              </tr>
-              <tr id="Purchased Amounts">
-                <td class="report-button">
-                  <form action="job-page.php" method="get">
-                    <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-                    <input type="submit"   name="report" value="Purchased Amounts">
-                  </form>
-                </td>
-              </tr>
-              <tr id="Rental Tracker">
-                <td class="report-button">
-                  <form action="job-page.php" method="get">
-                    <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-                    <input type="submit"   name="report" value="Rental Tracker">
-                  </form>
-                </td>
-              </tr>
-              <tr id="Test Report Layout">
-                <td class="report-button">
-                  <form action="job-page.php" method="get">
-                    <input type="checkbox" name="job"    value="<?php echo $job ?>" checked hidden>
-                    <input type="submit"   name="report" value="Test Report">
-                  </form>
-                </td>
-              </tr>
+              <?php createButton("Budgeted Amounts",  $job) ?>
+              <?php createButton("Purchased Amounts", $job) ?>
+              <?php createButton("Rental Tracker",    $job) ?>
+              <?php createButton("Test Report",       $job) ?>
             </tbody>
           </table>
         </div>
@@ -132,37 +118,17 @@
         <!-- Filter Inputs Underneath Data Container -->
         <div class="content-container" id="filter-bar">
           <form action="job-page.php" method="GET" id="filter-bar-form">
-            <input type="checkbox" name="job" value="<?php echo $_GET["job"] ?>" checked hidden>
-            <input type="checkbox" name="report" value="<?php echo $_GET["report"] ?>" checked hidden>
-
-            <!-- Sort box for item code, if set -> make placeholder appear | else -> leave empty -->
-            <?php
-              if (isset($_GET['code'])) {
-                echo 'Code:<input type="text" autofocus="autofocus" onfocus="this.select()" name="code" placeholder="'.$_GET['code'].'"> ';
-              } else {
-                echo 'Code:<input type="text" autofocus="autofocus" onfocus="this.select()" name="code"> ';
-              }
-
-              // Sort box for item description, if set -> make placeholder appear | else -> leave empty
-              if (isset($_GET['description'])) {
-                echo 'Description:<input type="text" name="description" placeholder="'.$_GET['description'].'"> ';
-              } else {
-                echo 'Description:<input type="text" name="description"> ';
-              }
-
-              // Sort box for item times bought, if set -> make placeholder appear | else -> leave empty
-              if (isset($_GET['times'])) {
-                echo 'Times Purchased:<input type="text" name="times" placeholder="'.$_GET['times'].'"> ';
-              } else {
-                echo 'Times Purchased:<input type="text" name="times"> ';
-              }
-            ?>
+            <input type="hidden" name="job"    value="<?php echo $_GET["job"] ?>">
+            <input type="hidden" name="report" value="<?php echo $_GET["report"] ?>">
+            Code:           <input type="text" name="code"        <?php if (isset($_GET['code']))        {echo"placeholder='".$_GET['code']."'";}        ?> autofocus="autofocus" onfocus="this.select()" >
+            Description:    <input type="text" name="description" <?php if (isset($_GET['description'])) {echo"placeholder='".$_GET['description']."'";} ?> >
+            Times Purchased:<input type="text" name="times"       <?php if (isset($_GET['times']))       {echo"placeholder='".$_GET['times']."'";}       ?> >
             <input type="submit" value="Filter" id="submit">
           </form>
         </div>
-      </main>  
+      </main>
       <?php if (isset($_GET['po'])) { include("php/job-page/rental-details.php");} ?>
       <?php include('php/footer.php') ?>
-    <script> document.getElementById("<?php echo $_GET['report'] ?>").style.backgroundColor = "gray" </script>
+      <script> document.getElementById("<?php echo $_GET['report'] ?>").style.backgroundColor = "gray" </script>
     </body>
   </html>
