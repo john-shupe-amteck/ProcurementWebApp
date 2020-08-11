@@ -21,6 +21,14 @@
         <a href="#">Link 3</a>
       </div>
     </div>';
+    echo '
+    <div class="dropdown" style="float:right;">
+      <a href="#" class="dropbtn">Pages</a>
+      <div class="dropdown-content">
+        <a href="vendors-home.php">Vendors</a>
+        <a href="user-page.php">Jobs</a>
+      </div>
+    </div>';
   }
   ?>
 </header>
