@@ -26,6 +26,10 @@
         `procurement-web-app`.`purchase-details`.`jobID` = '".$_GET['job']."'";
     }
 
+    if (isset($_GET['vendor']) && $_GET['vendor'] != "") {
+      $where = $where." and `procurement-web-app`.`purchase-details`.`vendorID` LIKE '%".$_GET['vendor']."%'";
+    }  
+    
     // Setting the GROUP BY statement
     $group_by = "
       group by
@@ -75,7 +79,7 @@
 
     if (isset($_GET['times']) && $_GET['times'] != "") {
       $where = $where." and times_purchased > ".$_GET['times'];
-    }
+    }   
 
     $query = $select.$from.$where;
     $result = mysqli_query($con, $query);
@@ -92,6 +96,7 @@
           <th class='quantity'>Quantity</th>
           <th class='times-purchased'>Times Purchased</th>
           <th class='purchase-price'>Purchase Price</th>
+          <th class='vendor'>Vendor</th>
         </tr>
       </thead>
     </table>
@@ -116,10 +121,15 @@
                 <td class="quantity        monospace" style="text-align:right">'. number_format($qty)       .'</td>
                 <td class="times-purchased monospace" style="text-align:right">'. number_format($times).'</td>
                 <td class="purchase-price  monospace" style="text-align:right">$'.number_format($cost, 2).'/'.$unit.'</td>
+                <td class="vendor          monospace text-right"></td>
               </tr>'
             ;
             // query with specific item details
-            $query2 = 'SELECT jobID, `PO-number`, sum(quantity) as quantity, avg(`unit-cost`) as `unit-cost`, `cost-unitID` as unit FROM `purchase-details` WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'" GROUP BY `PO-number` ORDER BY `PO-number`';
+            $WHERE =  'WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'"';
+            if (isset($_GET['vendor']) && $_GET['vendor'] != "") {
+              $WHERE = $WHERE.' and vendorID LIKE "%'.$_GET['vendor'].'%"';
+            }
+            $query2 = 'SELECT jobID, `PO-number`, sum(quantity) as quantity, avg(`unit-cost`) as `unit-cost`, `cost-unitID` as unit, vendorID FROM `purchase-details`'.$WHERE.' GROUP BY `PO-number` ORDER BY `PO-number`';
             $result2 = mysqli_query($con, $query2);
 
             // adds in the po table

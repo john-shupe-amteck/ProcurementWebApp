@@ -120,9 +120,10 @@
           <form action="job-page.php" method="GET" id="filter-bar-form">
             <input type="hidden" name="job"    value="<?php echo $_GET["job"] ?>">
             <input type="hidden" name="report" value="<?php echo $_GET["report"] ?>">
-            Code:           <input type="text" name="code"        <?php if (isset($_GET['code']))        {echo"placeholder='".$_GET['code']."'";}        ?> autofocus="autofocus" onfocus="this.select()" >
+            Code:           <input type="text" name="code"        <?php if (isset($_GET['code']))        {echo"placeholder='".$_GET['code']."'";}        ?> autofocus="autofocus" onfocus="this.select()" style="width:5ch">
             Description:    <input type="text" name="description" <?php if (isset($_GET['description'])) {echo"placeholder='".$_GET['description']."'";} ?> >
             Times Purchased:<input type="text" name="times"       <?php if (isset($_GET['times']))       {echo"placeholder='".$_GET['times']."'";}       ?> >
+            Vendor:         <input type="text" name="vendor"      <?php if (isset($_GET['vendor']))      {echo"placeholder='".$_GET['vendor']."'";}      ?> >
             <input type="submit" value="Filter" id="submit">
           </form>
         </div>
