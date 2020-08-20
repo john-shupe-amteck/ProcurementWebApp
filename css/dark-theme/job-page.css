@@ -202,19 +202,3 @@ colors {
   .sub-table tr {
     border: none;
   }
-
-/* classes to anchor table part to top and bottom */
-  .anchor-top {
-    position: sticky;
-    top: 0;
-    box-shadow: 0px 2px 5px black;
-    background: #EEE5E9;
-    z-index: 1000;
-}
-  .anchor-bottom {
-    position: sticky;
-    bottom: 0;
-    box-shadow: 0px 2px 5px black;
-    background: #EEE5E9;
-    z-index: 1000;
-} 

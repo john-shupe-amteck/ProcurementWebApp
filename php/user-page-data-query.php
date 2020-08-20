@@ -12,55 +12,7 @@
     $description = $_GET['description'];
     $description = strtoupper($description);
   }
-  $order= (isset($_GET['order']))?$_GET['order']:"itemID ASC";
-  // Sets order var to necessary sort column name
-  switch ($order) {
-    case 'name':
-      $order = "name ASC";
-      $where1 = "1";
-      break;
-    case 'bud-quantity':
-      $order = "budqty DESC";
-      $where1 = "1";
-      break;
-    case 'bud-cost':
-      $order = "budcost DESC";
-      $where1 = "1";
-      break;
-    case 'bud-total':
-      $order = "budtotal DESC";
-      $where1 = "1";
-      break;
-    case 'po-quantity':
-      $order = "poqty DESC";
-      $where1 = "1";
-      break;
-    case 'po-cost':
-      $order = "pocost DESC";
-      $where1 = "1";
-      break;
-    case 'po-total':
-      $order = "pototal DESC";
-      $where1 = "1";
-      break;
-    case 'var-quantity':
-      $order = "variance DESC";
-      $where1 = 'variance != 0';
-      break;
-    case 'var-total':
-      $order = 'variance2 DESC';
-      $where1 = 'variance2 != 0';
-      break; 
-    case 'itemID ASC':
-      $order = $order;
-      $where1 = "1";
-      break;
-    
-    default:
-      $order = "itemID ASC";
-      $where1 = "1";
-      break;
-  }
+
 // Set order Variable
 // Budgeted Query
   $select = "CREATE OR REPLACE VIEW budgeted AS
@@ -136,9 +88,9 @@
   mysqli_query($con, $query);
 // Final Query
   if (isset($description) && $description != "PARTIAL DESCRIPTION") {
-    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%' AND ".$where1." ORDER BY ".$order;
+    $query = "SELECT * FROM procurementreport WHERE name like '%".$description."%'";
   } else {
-    $query = "SELECT * FROM procurementreport WHERE ".$where1." ORDER BY ".$order;
+    $query = "SELECT * FROM procurementreport";
   }
   $result = mysqli_query($con, $query);
 // Loop to show data
