@@ -88,54 +88,48 @@
     $totalRowResults = mysqli_query($con, $totalRowQuery);
   ?>
 <!-- HTML -->
-  <div id="table-headers">
-    <table class="non-clickable">
-      <thead>
-        <tr>
-          <th class="description">Description</th>
-          <th class='quantity'>Quantity</th>
-          <th class='times-purchased'>Times Purchased</th>
-          <th class='purchase-price'>Purchase Price</th>
-          <th class='vendor'>Vendor</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div id="main-data">
-    <table>
-      <tbody class="non-clickable">
-        <?php
-          // Iterates through results and populates to table
-          while ($row = mysqli_fetch_array($result)) {
+  <table class="non-clickable sortable">
+    <thead>
+      <tr>
+        <th class="anchor-top description">Description</th>
+        <th class='anchor-top quantity'>Quantity</th>
+        <th class='anchor-top times-purchased'>Times Purchased</th>
+        <th class='anchor-top purchase-price'>Purchase Price</th>
+        <th class='anchor-top vendor'>Vendor</th>
+      </tr>
+    </thead>
+    <tbody class="non-clickable">
+      <?php
+        // Iterates through results and populates to table
+        while ($row = mysqli_fetch_array($result)) {
 
-            $id = $row['itemID'];
-            $desc = $row['description'];
-            $qty = $row['quantity'];
-            $times = $row['times_purchased'];
-            $cost = $row['cost'];
-            $unit = $row['unit'];
+          $id = $row['itemID'];
+          $desc = $row['description'];
+          $qty = $row['quantity'];
+          $times = $row['times_purchased'];
+          $cost = $row['cost'];
+          $unit = $row['unit'];
 
-            echo '
-              <tr class="main-info">
-                <td class="description     monospace">'.$desc.'</td>
-                <td class="quantity        monospace" style="text-align:right">'. number_format($qty)       .'</td>
-                <td class="times-purchased monospace" style="text-align:right">'. number_format($times).'</td>
-                <td class="purchase-price  monospace" style="text-align:right">$'.number_format($cost, 2).'/'.$unit.'</td>
-                <td class="vendor          monospace text-right"></td>
-              </tr>'
-            ;
-            // query with specific item details
-            $WHERE =  'WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'"';
-            if (isset($_GET['vendor']) && $_GET['vendor'] != "") {
-              $WHERE = $WHERE.' and vendorID LIKE "%'.$_GET['vendor'].'%"';
-            }
-            $query2 = 'SELECT jobID, `PO-number`, sum(quantity) as quantity, avg(`unit-cost`) as `unit-cost`, `cost-unitID` as unit, vendorID FROM `purchase-details`'.$WHERE.' GROUP BY `PO-number` ORDER BY `PO-number`';
-            $result2 = mysqli_query($con, $query2);
-
-            // adds in the po table
-            include('PO-subtable.php');          
+          echo '
+            <tr class="main-info">
+              <td class="description     monospace">'.$desc.'</td>
+              <td class="quantity        monospace" style="text-align:right">'. number_format($qty)       .'</td>
+              <td class="times-purchased monospace" style="text-align:right">'. number_format($times).'</td>
+              <td class="purchase-price  monospace" style="text-align:right">$'.number_format($cost, 2).'/'.$unit.'</td>
+              <td class="vendor          monospace text-right"></td>
+            </tr>'
+          ;
+          // query with specific item details
+          $WHERE =  'WHERE itemID = "'.$id.'" and jobID = "'.$_GET['job'].'"';
+          if (isset($_GET['vendor']) && $_GET['vendor'] != "") {
+            $WHERE = $WHERE.' and vendorID LIKE "%'.$_GET['vendor'].'%"';
           }
-        ?>
-      </tbody>
-    </table>
-  </div>
+          $query2 = 'SELECT jobID, `PO-number`, sum(quantity) as quantity, avg(`unit-cost`) as `unit-cost`, `cost-unitID` as unit, vendorID FROM `purchase-details`'.$WHERE.' GROUP BY `PO-number` ORDER BY `PO-number`';
+          $result2 = mysqli_query($con, $query2);
+
+          // adds in the po table
+          include('PO-subtable.php');          
+        }
+      ?>
+    </tbody>
+  </table>

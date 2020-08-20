@@ -88,18 +88,16 @@
     $totalRowResults = mysqli_query($con, $totalRowQuery);
   ?>
 <!-- HTML -->
-  <table class="non-clickable">
-    <div class="test-header">
-      <thead style="box-shadow: 0px 2px 5px black;">
-        <tr>
-          <th class="description">Description</th>
-          <th class='quantity'>Quantity</th>
-          <th class='times-purchased'>Times Purchased</th>
-          <th class='purchase-price'>Purchase Price</th>
-          <th class='vendor'>Vendor</th>
-        </tr>
-      </thead>
-    </div>
+  <table class="non-clickable sortable">
+    <thead>
+      <tr>
+        <th class="anchor-top description">Description</th>
+        <th class='anchor-top quantity'>Quantity</th>
+        <th class='anchor-top times-purchased'>Times Purchased</th>
+        <th class='anchor-top purchase-price'>Purchase Price</th>
+        <th class='anchor-top vendor'>Vendor</th>
+      </tr>
+    </thead>
     <tbody class="non-clickable">
       <?php
         // Iterates through results and populates to table

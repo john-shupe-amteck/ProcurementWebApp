@@ -48,52 +48,42 @@
     $result2 = mysqli_query($con, $query);
   ?>
 <!-- HTML -->
-  <div id="table-headers">
-    <table>
-      <thead>
-        <tr>
-          <th class="budgeted-amount-description">Description</th>
-          <th class='budgeted-amount-quantity'>Quantity   </th>
-          <th class='budgeted-amount-cost'    >Cost       </th>
-          <th class='budgeted-amount-total'   >Total      </th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div id="main-data">
-    <table>
-      <tbody class="non-clickable">  
+  <table class="sortable">
+    <thead> 
+      <tr>
+        <th class="anchor-top budgeted-amount-description">Description</th>
+        <th class='anchor-top budgeted-amount-quantity'>Quantity   </th>
+        <th class='anchor-top budgeted-amount-cost'    >Cost       </th>
+        <th class='anchor-top budgeted-amount-total'   >Total      </th>
+      </tr>
+    </thead>
+    <tbody class="non-clickable">  
       <?php
         while ($row = mysqli_fetch_array($result)) {
           echo '
             <tr>
-            <td class="budgeted-amount-description monospace">'.                          $row["description"]             .'</td>
-            <td class="budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
-            <td class="budgeted-amount-cost text-right monospace">$'. number_format($row["unit-cost"], 2).'/'.$row["cost-unitID"].'</td>
-            <td class="budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
+              <td class="budgeted-amount-description monospace">'.                          $row["description"]             .'</td>
+              <td class="budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
+              <td class="budgeted-amount-cost text-right monospace">$'. number_format($row["unit-cost"], 2).'/'.$row["cost-unitID"].'</td>
+              <td class="budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
             </tr>'
           ;
         }
       ?>
-      </tbody>
-    </table>
-  </div>
-  <div id="totals-row">
-    <table>
-      <tbody>
-        <?php
-          while ($row = mysqli_fetch_array($result2)) {
-            echo '
-              <tr>
-              <td class="budgeted-amount-description monospace"></td>
-              <td class="budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
-              <td class="budgeted-amount-cost monospace"></td>
-              <td class="budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
-              </tr>
-              '
-            ;
-          }
-        ?>
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+    <tfoot>
+      <?php
+        while ($row = mysqli_fetch_array($result2)) {
+          echo '
+            <tr>
+              <td class="anchor-bottom budgeted-amount-description monospace"></td>
+              <td class="anchor-bottom budgeted-amount-quantity text-right monospace">'. number_format($row["qty"])      .'</td>
+              <td class="anchor-bottom budgeted-amount-cost monospace"></td>
+              <td class="anchor-bottom budgeted-amount-total text-right monospace">$'. number_format($row["total"], 2).'</td>
+            </tr>
+            '
+          ;
+        }
+      ?>
+    </tfoot>
+  </table>
