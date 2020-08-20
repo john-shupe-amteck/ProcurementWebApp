@@ -89,7 +89,7 @@
   ?>
 <!-- HTML -->
   <div id="table-headers">
-    <table>
+    <table class="non-clickable">
       <thead>
         <tr>
           <th class="description">Description</th>

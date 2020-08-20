@@ -25,8 +25,8 @@
   ?>
 <!-- HTML -->
   <div id="main-data">
-    <table class="non-clickable">
-      <thead>
+    <table class="sortable">
+      <thead class="non-clickable">
         <tr>
           <th>Equipment Description</th>
           <th>Equipment #</th>
