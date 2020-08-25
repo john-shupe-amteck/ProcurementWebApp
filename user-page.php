@@ -34,6 +34,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css">
 
+
       <title>Amteck Procurement</title>
     </head>
 
@@ -129,28 +130,28 @@
 
               echo (isset($job_name))?"<h1 style='text-align:left;'>".$job_name."</h1>":"<h1 style='text-align:left;'>Select A Job</h1>";
             ?>
-            <table id="domainsTable" class="tablesorter">
+            <table id="user-pageTable" class="tablesorter">
               <thead>
                 <tr>
-                  <th class="anchor-top"></th>
-                  <th class="anchor-top" colspan="5">Budgeted</th>
-                  <th class="anchor-top" colspan="5">Purchased</th>
-                  <th class="anchor-top" colspan="3">Variance</th>
+                  <th class="anchor-top sorter-false filter-false"></th>
+                  <th class="anchor-top sorter-false filter-false" colspan="5">Budgeted</th>
+                  <th class="anchor-top sorter-false filter-false" colspan="5">Purchased</th>
+                  <th class="anchor-top sorter-false filter-false" colspan="3">Variance</th>
                 </tr>
                 <tr>
                   <th id="name" class='anchor-top-2 item-name'>Item</th>
                   <th id="bud-quantity" class='anchor-top-2 bud-quantity'>Quantity</th>                
-                  <th class="anchor-top-2 dollars"></th>
+                  <th class="anchor-top-2 dollars sorter-false filter-false"></th>
                   <th id="bud-cost" class='anchor-top-2 bud-cost'>Cost</th>
-                  <th class="anchor-top-2 dollars"></th>
+                  <th class="anchor-top-2 dollars sorter-false filter-false"></th>
                   <th id="bud-total" class='anchor-top-2 bud-total'>Total</th>
                   <th id="po-quantity" class='anchor-top-2 po-quantity'>Quantity</th>
-                  <th class="anchor-top-2 dollars"></th>
+                  <th class="anchor-top-2 dollars sorter-false filter-false"></th>
                   <th id="po-cost" class='anchor-top-2 po-cost'>Cost</th>
-                  <th class="anchor-top-2 dollars"></th>
+                  <th class="anchor-top-2 dollars sorter-false filter-false"></th>
                   <th id="po-total" class='anchor-top-2 po-total'>Total</th>
                   <th id="var-quantity" class='anchor-top-2 var-quantity'>Quantity</th>
-                  <th class="anchor-top-2 dollars"></th>
+                  <th class="anchor-top-2 dollars sorter-false filter-false"></th>
                   <th id="var-total" class="anchor-top-2 var-total">Total</th>
                 </tr>
               </thead>
@@ -172,5 +173,6 @@
         elem = document.getElementById("<?php echo isset($_GET["job"])?$_GET["job"]:"none" ?>");
         elem.style.backgroundColor = "gray";
       </script>
+      <script src="js/user-page.js"></script>
     </body>
   </html>

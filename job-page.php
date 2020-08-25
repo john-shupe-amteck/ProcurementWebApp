@@ -70,9 +70,6 @@
 
       <!-- link for google fonts TODO: move into the main .css -->
       <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-      <script src="js/sorttable.js" type="text/javascript"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-      <script src=""></script>
       <script src="//ajax.aspnetcdn.com/ajax/4.0/1/MicrosoftAjax.js" type="text/javascript"></script>
 
       <title>Amteck Procurement</title>

@@ -88,7 +88,7 @@
     $totalRowResults = mysqli_query($con, $totalRowQuery);
   ?>
 <!-- HTML -->
-  <table class="non-clickable sortable">
+  <table id="domainsTable" class="tableSorter">
     <thead>
       <tr>
         <th class="anchor-top description">Description</th>

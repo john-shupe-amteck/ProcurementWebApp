@@ -60,5 +60,6 @@ $(function() {
     return false;
   })
 
-  $("#domainsTable").tablesorter( { theme: "jui"});
+
+
 });

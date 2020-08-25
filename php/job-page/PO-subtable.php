@@ -1,5 +1,5 @@
 <!-- HTML -->
-  <tr class="sub-table">
+  <tr class="sub-table tablesorter-childrow">
     <td colspan="5">
       <table class="po-table non-clickable">
       <?php
